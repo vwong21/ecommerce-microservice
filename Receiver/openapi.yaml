@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: e-commerce api
+  description: e-commerce api for managing products and orders
+  contact:
+    email: vincentwong5609@gmail.com
+  version: 1.0.0
+servers:
+  - url: /
+tags:
+  - name: products
+    description: Operations related to products
+  - name: orders
+    description: Operations related to orders
+paths:
+  /products:
+    post:
+      tags:
+        - products
+      summary: creates a new product
+      description: Adds a new product to the catalogue
+      operationId: app.createProduct
+      requestBody:
+        description: Product information to add
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "201":
+          description: Product created
+        "400":
+          description: "invalid input, object invalid"
+        "409":
+          description: an existing product already exists
+  /orders:
+    post:
+      tags:
+        - orders
+      summary: processes a new order
+      description: Processes a customer's order
+      operationId: app.processOrder
+      requestBody:
+        description: Order information to process
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "201":
+          description: Order processed
+        "400":
+          description: "invalid input, object invalid"
+components:
+  schemas:
+    Product:
+      required:
+        - name
+        - price
+        - product_id
+        - quantity
+      type: object
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          example: a1b2c3d4-1234-5678-abcd-0123456789ab
+        name:
+          type: string
+          example: product1
+        price:
+          type: number
+          format: double
+          example: 49.99
+        quantity:
+          type: integer
+          example: 100
+    Order:
+      required:
+        - customer_id
+        - order_date
+        - quantity
+        - total_price
+      type: object
+      properties:
+        customer_id:
+          type: string
+          format: uuid
+          example: a1b2c3d4-1234-5678-abcd-0123456789ab
+        order_date:
+          type: string
+          format: date-time
+          example: 2024-01-11T12:30:00Z
+        quantity:
+          type: integer
+          example: 100
+        total_price:
+          type: number
+          format: double
+          example: 99.99
