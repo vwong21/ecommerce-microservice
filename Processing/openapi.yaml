@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: e-commerce api
+  description: e-commerce api for managing products and orders
+  contact:
+    email: vincentwong5609@gmail.com
+  version: 1.0.0
+servers:
+  - url: /
+tags:
+  - name: products
+    description: Operations related to products
+  - name: orders
+    description: Operations related to orders
+paths:
+  /stats:
+    get:
+      summary: Gets the event stats
+      operationId: app.get_stats
+      description: Gets product and order processed statistics
+      responses:
+        '200':
+          description: Successfully returned a list of product events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/ReadingStats'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    ReadingStats:
+      required:
+      - number_products
+      - number_orders
+      - highest_product_price
+      - highest_order_price
+      - highest_product_quantity
+      - highest_order_quantity
+      properties:
+        number_products:
+          type: integer
+          example: 100
+        number_orders:
+          type: integer
+          example: 100
+        highest_product_price:
+          type: number_order
+          example: 99.99
+        highest_order_price:
+          type: number_order
+          example: 99.99
+        highest_product_quantity:
+          type: integer
+          example: 100
+        highest_order_quantity:
+          type: integer
+          example: 100
+      type: object

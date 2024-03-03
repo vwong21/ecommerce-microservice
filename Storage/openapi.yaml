@@ -33,6 +33,45 @@ paths:
           description: "invalid input, object invalid"
         "409":
           description: an existing product already exists
+    get:
+      tags:
+        - products
+      summary: Gets event of product
+      description: Retrieves all events based on time
+      operationId: app.getProductEvents
+      parameters:
+        - name: start_timestamp
+          in: query
+          description: Filter starting here
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+        - name: end_timestamp
+          in: query
+          description: Filter ends here
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+      responses:
+        "200":
+          description: Successfully returned a list of product events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
   /orders:
     post:
       tags:
@@ -51,6 +90,45 @@ paths:
           description: Order processed
         "400":
           description: "invalid input, object invalid"
+    get:
+      tags:
+        - orders
+      summary: Gets events of orders
+      description: Retrieves all events based on time
+      operationId: app.getOrderEvents
+      parameters:
+        - name: start_timestamp
+          in: query
+          description: Filter starting here
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+        - name: end_timestamp
+          in: query
+          description: Filter ends here
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+      responses:
+        "200":
+          description: Successfully returned a list of order events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 components:
   schemas:
     Product:

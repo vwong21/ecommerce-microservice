@@ -98,3 +98,5 @@
 2024-02-08 15:57:12,370 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of f97c313c-a94a-445a-b29b-16a073ab7280
 2024-02-08 15:57:12,597 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of fe812c4c-8f51-438f-a1a9-2d0290d5f228
 2024-02-08 15:57:12,722 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of bc6c59be-5a84-42fe-a3cd-ea43dea590bd
+2024-03-02 21:22:31,417 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of 43160fd5-941b-4456-a193-0c8076988742
+2024-03-02 21:31:01,074 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of 21242648-9bbd-4ac1-9a5b-d89bb9f2392f
