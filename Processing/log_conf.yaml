@@ -13,11 +13,11 @@ handlers:
     level: DEBUG
     formatter: simple
     filename: app.log
-  loggers:
-    basicLogger:
-      level: DEBUG
-      handlers: [console, file]
-      propagate: no
-  root:
+loggers:
+  basicLogger:
     level: DEBUG
-    handlers: [console]
+    handlers: [console, file]
+    propagate: no
+root:
+  level: DEBUG
+  handlers: [console]

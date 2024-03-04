@@ -19,15 +19,15 @@ paths:
       operationId: app.get_stats
       description: Gets product and order processed statistics
       responses:
-        '200':
+        "200":
           description: Successfully returned a list of product events
           content:
             application/json:
               schema:
                 type: object
                 items:
-                  $ref: '#/components/schemas/ReadingStats'
-        '400':
+                  $ref: "#/components/schemas/ReadingStats"
+        "400":
           description: Invalid request
           content:
             application/json:
@@ -40,12 +40,12 @@ components:
   schemas:
     ReadingStats:
       required:
-      - number_products
-      - number_orders
-      - highest_product_price
-      - highest_order_price
-      - highest_product_quantity
-      - highest_order_quantity
+        - number_products
+        - number_orders
+        - highest_product_price
+        - highest_order_price
+        - highest_product_quantity
+        - highest_order_quantity
       properties:
         number_products:
           type: integer
@@ -54,10 +54,10 @@ components:
           type: integer
           example: 100
         highest_product_price:
-          type: number_order
+          type: number
           example: 99.99
         highest_order_price:
-          type: number_order
+          type: number
           example: 99.99
         highest_product_quantity:
           type: integer
