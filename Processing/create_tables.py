@@ -12,7 +12,8 @@ c.execute(
           highest_product_price REAL NOT NULL,
           highest_order_price REAL NOT NULL,
           highest_product_quantity INTEGER NOT NULL,
-          highest_order_quantity INTEGER NOT NULL
+          highest_order_quantity INTEGER NOT NULL,
+          created_at TEXT NOT NULL
           )
 """
 )

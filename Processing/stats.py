@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime, Float
+from sqlalchemy import Column, Integer, String, DateTime, Float, Text
 from base import Base
+from datetime import datetime
 
 
 class Stats(Base):
@@ -12,6 +13,7 @@ class Stats(Base):
     highest_order_price = Column(Float, nullable=False)
     highest_product_quantity = Column(Integer, nullable=False)
     highest_order_quantity = Column(Integer, nullable=False)
+    created_at = Column(Text, nullable=False)
 
     def __init__(
         self,
@@ -21,6 +23,7 @@ class Stats(Base):
         highest_order_price,
         highest_product_quantity,
         highest_order_quantity,
+        created_at=None,
     ):
         self.number_products = number_products
         self.number_orders = number_orders
@@ -28,6 +31,10 @@ class Stats(Base):
         self.highest_order_price = highest_order_price
         self.highest_product_quantity = highest_product_quantity
         self.highest_order_quantity = highest_order_quantity
+        if created_at is None:
+            self.created_at = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        else:
+            self.created_at = created_at
 
     def to_dict(self):
         dict = {}
@@ -37,5 +44,6 @@ class Stats(Base):
         dict["highest_order_price"] = self.highest_order_price
         dict["highest_product_quantity"] = self.highest_product_quantity
         dict["highest_order_quantity"] = self.highest_order_quantity
+        dict["created_at"] = self.created_at
 
         return dict

@@ -100,3 +100,12 @@
 2024-02-08 15:57:12,722 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of bc6c59be-5a84-42fe-a3cd-ea43dea590bd
 2024-03-02 21:22:31,417 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of 43160fd5-941b-4456-a193-0c8076988742
 2024-03-02 21:31:01,074 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of 21242648-9bbd-4ac1-9a5b-d89bb9f2392f
+2024-03-04 22:55:03,832 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of 042c4700-ca13-4074-9faa-94d53310846e
+2024-03-04 22:55:21,044 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of a50aebf1-0005-4592-96f2-3b9c3e6509cd
+2024-03-04 22:59:30,571 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of 0d86e408-91c4-4538-982b-1e6772fbed8e
+2024-03-04 22:59:34,565 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of ec32729a-5e05-415e-9a32-4325a4b3a2d6
+2024-03-04 23:04:53,812 - basicLogger - ERROR - 'str' object has no attribute 'dayfirst'
+2024-03-04 23:04:58,751 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of 958a4061-96ba-4938-b6d7-df265024b1da
+2024-03-04 23:06:26,106 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of ff3eed2f-afb0-4cb6-9808-f0b53b50a418
+2024-03-04 23:06:33,085 - basicLogger - ERROR - 'str' object has no attribute 'dayfirst'
+2024-03-04 23:07:02,261 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of 7463afb2-fc1a-43c1-959c-c2907b426487

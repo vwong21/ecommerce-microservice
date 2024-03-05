@@ -2,11 +2,14 @@ import connexion
 import yaml
 import logging
 import logging.config
+import requests
+from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from base import Base
 from stats import Stats
+
 
 with open("app_conf.yaml", "r") as f:
     app_config = yaml.safe_load(f.read())
@@ -22,38 +25,62 @@ with open("log_conf.yaml", "r") as f:
 logger = logging.getLogger("basicLogger")
 
 
+def get_latest_datetime():
+    session = DB_SESSION()
+    try:
+        latest_stat = session.query(Stats).order_by(Stats.created_at.desc()).first()
+        if latest_stat:
+            latest_datetime = latest_stat.created_at
+        else:
+            latest_datetime = datetime.now()
+    except Exception as e:
+        logger.error(e)
+    finally:
+        session.close()
+    return latest_datetime
+
+
 def populate_stats():
     logger.info("Start Periodic Processing")
     session = DB_SESSION()
     try:
+        stats = session.query(Stats).first()
+        if stats is None:
+            stats = Stats(
+                number_products=0,
+                number_orders=0,
+                highest_product_price=0.0,
+                highest_order_price=0.0,
+                highest_product_quantity=0,
+                highest_order_quantity=0,
+                created_at=datetime.now(),
+            )
+            session.add(stats)
+            session.commit()
 
-        # Create sample Stats objects
-        sample_stats = [
-            Stats(
-                number_products=100,
-                number_orders=50,
-                highest_product_price=99.99,
-                highest_order_price=199.99,
-                highest_product_quantity=200,
-                highest_order_quantity=100,
-            ),
-            Stats(
-                number_products=150,
-                number_orders=75,
-                highest_product_price=149.99,
-                highest_order_price=299.99,
-                highest_product_quantity=250,
-                highest_order_quantity=125,
-            ),
-        ]
+        current_datetime = datetime.now()
+        last_datetime = get_latest_datetime()
+        product_endpoint = "http://localhost:8090/products"
+        order_endpoint = "http://localhost:8090/orders"
 
-        # Add sample Stats objects to the session
-        session.add_all(sample_stats)
+        response_product = requests.get(
+            product_endpoint,
+            params={
+                "start_timestamp": last_datetime,
+                "end_timestamp": current_datetime,
+            },
+        )
 
-        # Commit the session to save the data to the database
-        session.commit()
+        response_order = requests.get(
+            order_endpoint,
+            params={
+                "start_timestamp": last_datetime,
+                "end_timestamp": current_datetime,
+            },
+        )
 
-        # Close the session
+        logger.info(f"Product response status code: {response_product.status_code}")
+        logger.info(f"Order response status code: {response_order.status_code}")
 
     except Exception as e:
         logger.error(e)

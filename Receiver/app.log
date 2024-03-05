@@ -7416,3 +7416,21 @@
 2024-03-02 21:22:31,420 - basicLogger - INFO - Returned event orders response (Id: 43160fd5-941b-4456-a193-0c8076988742) with status 201
 2024-03-02 21:30:59,022 - basicLogger - INFO - Received event products request with a trace id of 21242648-9bbd-4ac1-9a5b-d89bb9f2392f
 2024-03-02 21:31:01,075 - basicLogger - INFO - Returned event products response (Id: 21242648-9bbd-4ac1-9a5b-d89bb9f2392f) with status 201
+2024-03-04 22:55:01,628 - basicLogger - INFO - Received event products request with a trace id of 042c4700-ca13-4074-9faa-94d53310846e
+2024-03-04 22:55:03,833 - basicLogger - INFO - Returned event products response (Id: 042c4700-ca13-4074-9faa-94d53310846e) with status 201
+2024-03-04 22:55:18,994 - basicLogger - INFO - Received event orders request with a trace id of a50aebf1-0005-4592-96f2-3b9c3e6509cd
+2024-03-04 22:55:21,046 - basicLogger - INFO - Returned event orders response (Id: a50aebf1-0005-4592-96f2-3b9c3e6509cd) with status 201
+2024-03-04 22:59:28,511 - basicLogger - INFO - Received event products request with a trace id of 0d86e408-91c4-4538-982b-1e6772fbed8e
+2024-03-04 22:59:30,573 - basicLogger - INFO - Returned event products response (Id: 0d86e408-91c4-4538-982b-1e6772fbed8e) with status 201
+2024-03-04 22:59:32,508 - basicLogger - INFO - Received event orders request with a trace id of ec32729a-5e05-415e-9a32-4325a4b3a2d6
+2024-03-04 22:59:34,566 - basicLogger - INFO - Returned event orders response (Id: ec32729a-5e05-415e-9a32-4325a4b3a2d6) with status 201
+2024-03-04 23:04:51,631 - basicLogger - INFO - Received event orders request with a trace id of 1a86032a-7d03-4992-84be-988438376370
+2024-03-04 23:04:53,814 - basicLogger - ERROR - 500 Server Error: Internal Server Error for url: http://localhost:8090/orders
+2024-03-04 23:04:56,704 - basicLogger - INFO - Received event products request with a trace id of 958a4061-96ba-4938-b6d7-df265024b1da
+2024-03-04 23:04:58,752 - basicLogger - INFO - Returned event products response (Id: 958a4061-96ba-4938-b6d7-df265024b1da) with status 201
+2024-03-04 23:06:23,930 - basicLogger - INFO - Received event products request with a trace id of ff3eed2f-afb0-4cb6-9808-f0b53b50a418
+2024-03-04 23:06:26,107 - basicLogger - INFO - Returned event products response (Id: ff3eed2f-afb0-4cb6-9808-f0b53b50a418) with status 201
+2024-03-04 23:06:31,037 - basicLogger - INFO - Received event orders request with a trace id of 9834a954-64ea-45c1-9abc-076259c0bdea
+2024-03-04 23:06:33,087 - basicLogger - ERROR - 500 Server Error: Internal Server Error for url: http://localhost:8090/orders
+2024-03-04 23:07:00,069 - basicLogger - INFO - Received event orders request with a trace id of 7463afb2-fc1a-43c1-959c-c2907b426487
+2024-03-04 23:07:02,263 - basicLogger - INFO - Returned event orders response (Id: 7463afb2-fc1a-43c1-959c-c2907b426487) with status 201

@@ -46,6 +46,7 @@ components:
         - highest_order_price
         - highest_product_quantity
         - highest_order_quantity
+        - created_at
       properties:
         number_products:
           type: integer
@@ -65,4 +66,8 @@ components:
         highest_order_quantity:
           type: integer
           example: 100
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-03-04T21:17:38Z"
       type: object
