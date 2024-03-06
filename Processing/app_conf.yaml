@@ -2,6 +2,6 @@ version: 1
 datastore:
   filename: stats.sqlite
 scheduler:
-  period_sec: 100
+  period_sec: 10
 eventstore:
   url: http://localhost:8090

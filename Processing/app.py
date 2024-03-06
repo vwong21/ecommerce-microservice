@@ -81,7 +81,7 @@ def calculate_stats(product_res, order_res):
         session.add(stats)
         session.commit()
     except Exception as e:
-        logger.error("error in function", e)
+        logger.error("error in stats calculation", e)
     finally:
         session.close()
 

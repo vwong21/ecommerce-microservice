@@ -26219,3 +26219,141 @@ FROM stats
 2024-03-05 23:08:47,383 - basicLogger - INFO - Request for statistics has started
 2024-03-05 23:08:47,388 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 1, 'number_orders': 1, 'highest_product_price': 25.99, 'highest_order_price': 78.99, 'highest_product_quantity': 10, 'highest_order_quantity': 10, 'created_at': '2024-03-06 07:00:12'}
 2024-03-05 23:08:47,388 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:46:53,284 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:46:53,300 - basicLogger - ERROR - (sqlite3.OperationalError) no such table: stats
+[SQL: SELECT stats.id AS stats_id, stats.number_products AS stats_number_products, stats.number_orders AS stats_number_orders, stats.highest_product_price AS stats_highest_product_price, stats.highest_order_price AS stats_highest_order_price, stats.highest_product_quantity AS stats_highest_product_quantity, stats.highest_order_quantity AS stats_highest_order_quantity, stats.created_at AS stats_created_at 
+FROM stats ORDER BY stats.created_at DESC
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-03-06 11:49:22,207 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:49:26,367 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:49:26,367 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:49:26,368 - basicLogger - DEBUG - Updated statistics: {'number_products': 30, 'number_orders': 30, 'highest_product_price': 100.0, 'highest_order_price': 99.0, 'highest_product_quantity': 100, 'highest_order_quantity': 99, 'created_at': '2024-03-06 19:49:26'}
+2024-03-06 11:49:26,369 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:49:27,209 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:49:31,298 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:49:31,298 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:49:31,299 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:31'}
+2024-03-06 11:49:31,300 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:49:32,217 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:49:35,181 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:35,185 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:31'}
+2024-03-06 11:49:35,186 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:36,352 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:49:36,353 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:49:36,355 - basicLogger - DEBUG - Updated statistics: {'number_products': 10, 'number_orders': 0, 'highest_product_price': 89.0, 'highest_order_price': 0.0, 'highest_product_quantity': 88, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:36'}
+2024-03-06 11:49:36,356 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:49:37,216 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:49:37,961 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:37,962 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 10, 'number_orders': 0, 'highest_product_price': 89.0, 'highest_order_price': 0.0, 'highest_product_quantity': 88, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:36'}
+2024-03-06 11:49:37,962 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:39,130 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:39,132 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 10, 'number_orders': 0, 'highest_product_price': 89.0, 'highest_order_price': 0.0, 'highest_product_quantity': 88, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:36'}
+2024-03-06 11:49:39,133 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:41,332 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:49:41,332 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:49:41,334 - basicLogger - DEBUG - Updated statistics: {'number_products': 1, 'number_orders': 0, 'highest_product_price': 100.0, 'highest_order_price': 0.0, 'highest_product_quantity': 25, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:41'}
+2024-03-06 11:49:41,335 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:49:42,085 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:42,086 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 1, 'number_orders': 0, 'highest_product_price': 100.0, 'highest_order_price': 0.0, 'highest_product_quantity': 25, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:41'}
+2024-03-06 11:49:42,087 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:42,205 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:49:43,421 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:43,422 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 1, 'number_orders': 0, 'highest_product_price': 100.0, 'highest_order_price': 0.0, 'highest_product_quantity': 25, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:41'}
+2024-03-06 11:49:43,422 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:44,686 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:44,687 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 1, 'number_orders': 0, 'highest_product_price': 100.0, 'highest_order_price': 0.0, 'highest_product_quantity': 25, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:41'}
+2024-03-06 11:49:44,687 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:46,321 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:49:46,321 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:49:46,323 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 7, 'highest_product_price': 0.0, 'highest_order_price': 87.0, 'highest_product_quantity': 0, 'highest_order_quantity': 98, 'created_at': '2024-03-06 19:49:46'}
+2024-03-06 11:49:46,324 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:49:46,379 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:46,381 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 0, 'number_orders': 7, 'highest_product_price': 0.0, 'highest_order_price': 87.0, 'highest_product_quantity': 0, 'highest_order_quantity': 98, 'created_at': '2024-03-06 19:49:46'}
+2024-03-06 11:49:46,381 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:47,205 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:49:47,663 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:47,664 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 0, 'number_orders': 7, 'highest_product_price': 0.0, 'highest_order_price': 87.0, 'highest_product_quantity': 0, 'highest_order_quantity': 98, 'created_at': '2024-03-06 19:49:46'}
+2024-03-06 11:49:47,665 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:48,724 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:48,725 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 0, 'number_orders': 7, 'highest_product_price': 0.0, 'highest_order_price': 87.0, 'highest_product_quantity': 0, 'highest_order_quantity': 98, 'created_at': '2024-03-06 19:49:46'}
+2024-03-06 11:49:48,726 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:49,897 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:49,899 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 0, 'number_orders': 7, 'highest_product_price': 0.0, 'highest_order_price': 87.0, 'highest_product_quantity': 0, 'highest_order_quantity': 98, 'created_at': '2024-03-06 19:49:46'}
+2024-03-06 11:49:49,899 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:50,917 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:50,918 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 0, 'number_orders': 7, 'highest_product_price': 0.0, 'highest_order_price': 87.0, 'highest_product_quantity': 0, 'highest_order_quantity': 98, 'created_at': '2024-03-06 19:49:46'}
+2024-03-06 11:49:50,919 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:51,335 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:49:51,335 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:49:51,336 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 3, 'highest_product_price': 0.0, 'highest_order_price': 89.0, 'highest_product_quantity': 0, 'highest_order_quantity': 97, 'created_at': '2024-03-06 19:49:51'}
+2024-03-06 11:49:51,337 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:49:52,124 - basicLogger - INFO - Request for statistics has started
+2024-03-06 11:49:52,126 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 0, 'number_orders': 3, 'highest_product_price': 0.0, 'highest_order_price': 89.0, 'highest_product_quantity': 0, 'highest_order_quantity': 97, 'created_at': '2024-03-06 19:49:51'}
+2024-03-06 11:49:52,127 - basicLogger - INFO - Request for statistics has completed
+2024-03-06 11:49:52,212 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:49:56,336 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:49:56,337 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:49:56,338 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:49:56'}
+2024-03-06 11:49:56,339 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:49:57,214 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:50:01,341 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:50:01,341 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:50:01,343 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:50:01'}
+2024-03-06 11:50:01,344 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:50:02,207 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:50:06,316 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:50:06,316 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:50:06,317 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:50:06'}
+2024-03-06 11:50:06,318 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:50:07,204 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:50:11,342 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:50:11,342 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:50:11,343 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:50:11'}
+2024-03-06 11:50:11,343 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:50:12,215 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:50:16,328 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:50:16,329 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:50:16,331 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:50:16'}
+2024-03-06 11:50:16,332 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:50:17,203 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:50:21,311 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:50:21,311 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:50:21,312 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:50:21'}
+2024-03-06 11:50:21,313 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:50:22,218 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:50:26,324 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:50:26,324 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:50:26,325 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:50:26'}
+2024-03-06 11:50:26,326 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:51:28,094 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:51:32,246 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:51:32,247 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:51:32,249 - basicLogger - DEBUG - Updated statistics: {'number_products': 10, 'number_orders': 10, 'highest_product_price': 91.0, 'highest_order_price': 72.0, 'highest_product_quantity': 89, 'highest_order_quantity': 99, 'created_at': '2024-03-06 19:51:32'}
+2024-03-06 11:51:32,250 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:51:38,078 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:51:42,206 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:51:42,207 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:51:42,209 - basicLogger - DEBUG - Updated statistics: {'number_products': 20, 'number_orders': 10, 'highest_product_price': 100.0, 'highest_order_price': 96.0, 'highest_product_quantity': 93, 'highest_order_quantity': 99, 'created_at': '2024-03-06 19:51:42'}
+2024-03-06 11:51:42,210 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:51:48,080 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:51:52,199 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:51:52,199 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:51:52,200 - basicLogger - DEBUG - Updated statistics: {'number_products': 10, 'number_orders': 20, 'highest_product_price': 100.0, 'highest_order_price': 99.0, 'highest_product_quantity': 77, 'highest_order_quantity': 95, 'created_at': '2024-03-06 19:51:52'}
+2024-03-06 11:51:52,201 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:51:58,082 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:52:02,189 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:52:02,189 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:52:02,190 - basicLogger - DEBUG - Updated statistics: {'number_products': 20, 'number_orders': 10, 'highest_product_price': 100.0, 'highest_order_price': 68.0, 'highest_product_quantity': 99, 'highest_order_quantity': 98, 'created_at': '2024-03-06 19:52:02'}
+2024-03-06 11:52:02,191 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:52:08,083 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:52:12,206 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:52:12,206 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:52:12,207 - basicLogger - DEBUG - Updated statistics: {'number_products': 1, 'number_orders': 10, 'highest_product_price': 55.0, 'highest_order_price': 73.0, 'highest_product_quantity': 48, 'highest_order_quantity': 100, 'created_at': '2024-03-06 19:52:12'}
+2024-03-06 11:52:12,208 - basicLogger - INFO - End Periodic Processing
+2024-03-06 11:52:18,077 - basicLogger - INFO - Start Periodic Processing
+2024-03-06 11:52:22,215 - basicLogger - INFO - Product response status code: 200
+2024-03-06 11:52:22,216 - basicLogger - INFO - Order response status code: 200
+2024-03-06 11:52:22,218 - basicLogger - DEBUG - Updated statistics: {'number_products': 0, 'number_orders': 0, 'highest_product_price': 0.0, 'highest_order_price': 0.0, 'highest_product_quantity': 0, 'highest_order_quantity': 0, 'created_at': '2024-03-06 19:52:22'}
+2024-03-06 11:52:22,218 - basicLogger - INFO - End Periodic Processing
