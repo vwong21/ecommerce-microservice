@@ -3,9 +3,10 @@ import yaml
 import logging
 import logging.config
 import requests
+from flask import jsonify
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from base import Base
 from stats import Stats
@@ -32,7 +33,7 @@ def get_latest_datetime():
         if latest_stat:
             latest_datetime = latest_stat.created_at
         else:
-            latest_datetime = datetime.now()
+            latest_datetime = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
     except Exception as e:
         logger.error(e)
     finally:
@@ -40,11 +41,56 @@ def get_latest_datetime():
     return latest_datetime
 
 
+def calculate_stats(product_res, order_res):
+    try:
+        session = DB_SESSION()
+
+        product_res_json = product_res.json()
+        order_res_json = order_res.json()
+
+        number_products = 0
+        number_orders = 0
+        highest_product_price = 0
+        highest_order_price = 0
+        highest_product_quantity = 0
+        highest_order_quantity = 0
+
+        for product in product_res_json:
+            number_products += 1
+            if product["price"] > highest_product_price:
+                highest_product_price = product["price"]
+            if product["quantity"] > highest_product_quantity:
+                highest_product_quantity = product["quantity"]
+
+        for order in order_res_json:
+            number_orders += 1
+            if order["total_price"] > highest_order_price:
+                highest_order_price = order["total_price"]
+            if order["quantity"] > highest_order_quantity:
+                highest_order_quantity = order["quantity"]
+
+        stats = Stats(
+            number_products=number_products,
+            number_orders=number_orders,
+            highest_product_price=highest_product_price,
+            highest_order_price=highest_order_price,
+            highest_product_quantity=highest_product_quantity,
+            highest_order_quantity=highest_order_quantity,
+            created_at=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
+        )
+        session.add(stats)
+        session.commit()
+    except Exception as e:
+        logger.error("error in function", e)
+    finally:
+        session.close()
+
+
 def populate_stats():
     logger.info("Start Periodic Processing")
     session = DB_SESSION()
     try:
-        stats = session.query(Stats).first()
+        stats = session.query(Stats).order_by(desc(Stats.created_at)).first()
         if stats is None:
             stats = Stats(
                 number_products=0,
@@ -53,12 +99,12 @@ def populate_stats():
                 highest_order_price=0.0,
                 highest_product_quantity=0,
                 highest_order_quantity=0,
-                created_at=datetime.now(),
+                created_at=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
             )
             session.add(stats)
             session.commit()
 
-        current_datetime = datetime.now()
+        current_datetime = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         last_datetime = get_latest_datetime()
         product_endpoint = "http://localhost:8090/products"
         order_endpoint = "http://localhost:8090/orders"
@@ -79,9 +125,15 @@ def populate_stats():
             },
         )
 
+        calculate_stats(response_product, response_order)
+
         logger.info(f"Product response status code: {response_product.status_code}")
         logger.info(f"Order response status code: {response_order.status_code}")
 
+        updated_stats = session.query(Stats).order_by(desc(Stats.created_at)).first()
+        logger.debug(f"Updated statistics: {updated_stats.to_dict()}")
+
+        logger.info("End Periodic Processing")
     except Exception as e:
         logger.error(e)
     finally:
@@ -97,7 +149,32 @@ def init_scheduler():
 
 
 def get_stats():
-    pass
+    logger.info("Request for statistics has started")
+    session = DB_SESSION()
+    try:
+        latest_stat = session.query(Stats).order_by(Stats.created_at.desc()).first()
+        if latest_stat is None:
+            logger.error("Statistics do not exist")
+            return jsonify({"message": "Statistics do not exist"}), 404
+        stats_dict = {
+            "number_products": latest_stat.number_products,
+            "number_orders": latest_stat.number_orders,
+            "highest_product_price": latest_stat.highest_product_price,
+            "highest_order_price": latest_stat.highest_order_price,
+            "highest_product_quantity": latest_stat.highest_product_quantity,
+            "highest_order_quantity": latest_stat.highest_order_quantity,
+            "created_at": latest_stat.created_at,
+        }
+
+        logger.debug(f"Statistics dictionary: {stats_dict}")
+        logger.info("Request for statistics has completed")
+
+        return jsonify(stats_dict), 200
+    except Exception as e:
+        logger.error(e)
+        return jsonify({"message": "Internal Server Error"}), 500
+    finally:
+        session.close()
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")

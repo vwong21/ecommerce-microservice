@@ -109,3 +109,76 @@
 2024-03-04 23:06:26,106 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of ff3eed2f-afb0-4cb6-9808-f0b53b50a418
 2024-03-04 23:06:33,085 - basicLogger - ERROR - 'str' object has no attribute 'dayfirst'
 2024-03-04 23:07:02,261 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of 7463afb2-fc1a-43c1-959c-c2907b426487
+2024-03-05 21:24:47,065 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:24:51,938 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:02,598 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:04,648 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:04,649 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:13,378 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:15,431 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:15,431 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:18,385 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:20,420 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:20,420 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:23,366 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:25,421 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:25,421 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:28,375 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:30,413 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:30,414 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:33,378 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:35,424 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:35,424 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:38,390 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:40,454 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:40,454 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:43,380 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:45,420 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:45,420 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:48,377 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:50,418 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:50,419 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:27:53,383 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 0 results
+2024-03-05 21:31:15,395 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of 6931e311-f73e-400a-b3da-b980bd06a56c
+2024-03-05 21:31:19,974 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of 9a822517-8c9f-4efc-930c-5b5566e604d4
+2024-03-05 21:32:35,313 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of 102b767d-e351-45dd-8210-9289df9e115b
+2024-03-05 21:32:39,852 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of d26bfde7-8981-42b4-baed-93232eb14a81
+2024-03-05 21:33:28,774 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of f184a00c-e4a1-4199-b67a-67a3f8c85d5f
+2024-03-05 21:33:32,139 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of 52b4acc3-3b88-40ec-ab32-39e8cf5e04fc
+2024-03-05 21:35:13,371 - basicLogger - DEBUG - Stored event 'create_order' request with a trace id of 65803563-ba56-4a4a-887b-c8d5a6f85971
+2024-03-05 21:35:17,306 - basicLogger - DEBUG - Stored event 'create_product' request with a trace id of e42655d9-8af9-4fd1-9ad5-476654bd563e
+2024-03-05 21:35:29,386 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 21:35:31,449 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 21:35:31,449 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 21:38:15,384 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 21:38:17,434 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 21:40:50,772 - basicLogger - INFO - [{'id': 1, 'product_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'name': 'product1', 'price': 49.99, 'quantity': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 21:40:50,773 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 21:40:52,828 - basicLogger - INFO - [{'id': 1, 'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'order_date': 'product1', 'quantity': 49.99, 'total_price': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 21:40:52,829 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 21:58:47,604 - basicLogger - INFO - [{'id': 1, 'product_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'name': 'product1', 'price': 49.99, 'quantity': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 21:58:47,604 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 21:59:20,659 - basicLogger - INFO - [{'id': 1, 'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'order_date': 'product1', 'quantity': 49.99, 'total_price': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 21:59:20,659 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:00:34,422 - basicLogger - INFO - [{'id': 1, 'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'order_date': 'product1', 'quantity': 49.99, 'total_price': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 22:00:34,422 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:00:55,722 - basicLogger - INFO - [{'id': 1, 'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'order_date': 'product1', 'quantity': 49.99, 'total_price': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 22:00:55,724 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:01:51,045 - basicLogger - INFO - [{'id': 1, 'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'order_date': 'product1', 'quantity': 49.99, 'total_price': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 22:01:51,045 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:02:40,264 - basicLogger - INFO - [{'id': 1, 'product_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'name': 'product1', 'price': 49.99, 'quantity': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 22:02:40,264 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:03:23,208 - basicLogger - INFO - [{'id': 1, 'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'order_date': datetime.datetime(2024, 1, 11, 12, 30), 'quantity': 12, 'total_price': 99.99, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 13), 'trace_id': '65803563-ba56-4a4a-887b-c8d5a6f85971'}]
+2024-03-05 22:03:23,209 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:03:54,492 - basicLogger - INFO - [{'id': 1, 'product_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'name': 'product1', 'price': 49.99, 'quantity': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 22:03:54,492 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:03:56,536 - basicLogger - INFO - [{'id': 1, 'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'order_date': datetime.datetime(2024, 1, 11, 12, 30), 'quantity': 12, 'total_price': 99.99, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 13), 'trace_id': '65803563-ba56-4a4a-887b-c8d5a6f85971'}]
+2024-03-05 22:03:56,536 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:03:59,490 - basicLogger - INFO - [{'id': 1, 'product_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'name': 'product1', 'price': 49.99, 'quantity': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 22:03:59,490 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:04:01,543 - basicLogger - INFO - [{'id': 1, 'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'order_date': datetime.datetime(2024, 1, 11, 12, 30), 'quantity': 12, 'total_price': 99.99, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 13), 'trace_id': '65803563-ba56-4a4a-887b-c8d5a6f85971'}]
+2024-03-05 22:04:01,544 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:04:04,486 - basicLogger - INFO - [{'id': 1, 'product_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'name': 'product1', 'price': 49.99, 'quantity': 100, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 17), 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}]
+2024-03-05 22:04:04,487 - basicLogger - INFO - Query for products after 2024-03-06 05:10:31 returns 1 results
+2024-03-05 22:04:06,534 - basicLogger - INFO - [{'id': 1, 'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'order_date': datetime.datetime(2024, 1, 11, 12, 30), 'quantity': 12, 'total_price': 99.99, 'date_created': datetime.datetime(2024, 3, 6, 5, 35, 13), 'trace_id': '65803563-ba56-4a4a-887b-c8d5a6f85971'}]
+2024-03-05 22:04:06,534 - basicLogger - INFO - Query for orders after 2024-03-06 05:10:31 returns 1 results

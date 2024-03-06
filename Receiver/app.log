@@ -7434,3 +7434,25 @@
 2024-03-04 23:06:33,087 - basicLogger - ERROR - 500 Server Error: Internal Server Error for url: http://localhost:8090/orders
 2024-03-04 23:07:00,069 - basicLogger - INFO - Received event orders request with a trace id of 7463afb2-fc1a-43c1-959c-c2907b426487
 2024-03-04 23:07:02,263 - basicLogger - INFO - Returned event orders response (Id: 7463afb2-fc1a-43c1-959c-c2907b426487) with status 201
+2024-03-05 21:28:53,580 - basicLogger - INFO - Received event products request with a trace id of 48574c65-de37-4eca-8e50-3170ca1043c3
+2024-03-05 21:28:57,665 - basicLogger - ERROR - HTTPConnectionPool(host='localhost', port=8090): Max retries exceeded with url: /products (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000022176ED2480>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-03-05 21:28:59,953 - basicLogger - INFO - Received event orders request with a trace id of e8ea3045-2e58-4caa-a364-f3d3bc1320f4
+2024-03-05 21:29:04,032 - basicLogger - ERROR - HTTPConnectionPool(host='localhost', port=8090): Max retries exceeded with url: /orders (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000022176ED22A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-03-05 21:31:00,024 - basicLogger - INFO - Received event orders request with a trace id of f8278dcc-cdc1-492f-9a16-7e8257f19c60
+2024-03-05 21:31:04,107 - basicLogger - ERROR - HTTPConnectionPool(host='localhost', port=8090): Max retries exceeded with url: /orders (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000022176EF89E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-03-05 21:31:13,217 - basicLogger - INFO - Received event orders request with a trace id of 6931e311-f73e-400a-b3da-b980bd06a56c
+2024-03-05 21:31:15,398 - basicLogger - INFO - Returned event orders response (Id: 6931e311-f73e-400a-b3da-b980bd06a56c) with status 201
+2024-03-05 21:31:17,923 - basicLogger - INFO - Received event products request with a trace id of 9a822517-8c9f-4efc-930c-5b5566e604d4
+2024-03-05 21:31:19,976 - basicLogger - INFO - Returned event products response (Id: 9a822517-8c9f-4efc-930c-5b5566e604d4) with status 201
+2024-03-05 21:32:33,137 - basicLogger - INFO - Received event products request with a trace id of 102b767d-e351-45dd-8210-9289df9e115b
+2024-03-05 21:32:35,314 - basicLogger - INFO - Returned event products response (Id: 102b767d-e351-45dd-8210-9289df9e115b) with status 201
+2024-03-05 21:32:37,796 - basicLogger - INFO - Received event orders request with a trace id of d26bfde7-8981-42b4-baed-93232eb14a81
+2024-03-05 21:32:39,853 - basicLogger - INFO - Returned event orders response (Id: d26bfde7-8981-42b4-baed-93232eb14a81) with status 201
+2024-03-05 21:33:26,592 - basicLogger - INFO - Received event products request with a trace id of f184a00c-e4a1-4199-b67a-67a3f8c85d5f
+2024-03-05 21:33:28,775 - basicLogger - INFO - Returned event products response (Id: f184a00c-e4a1-4199-b67a-67a3f8c85d5f) with status 201
+2024-03-05 21:33:30,088 - basicLogger - INFO - Received event orders request with a trace id of 52b4acc3-3b88-40ec-ab32-39e8cf5e04fc
+2024-03-05 21:33:32,140 - basicLogger - INFO - Returned event orders response (Id: 52b4acc3-3b88-40ec-ab32-39e8cf5e04fc) with status 201
+2024-03-05 21:35:11,201 - basicLogger - INFO - Received event orders request with a trace id of 65803563-ba56-4a4a-887b-c8d5a6f85971
+2024-03-05 21:35:13,373 - basicLogger - INFO - Returned event orders response (Id: 65803563-ba56-4a4a-887b-c8d5a6f85971) with status 201
+2024-03-05 21:35:15,253 - basicLogger - INFO - Received event products request with a trace id of e42655d9-8af9-4fd1-9ad5-476654bd563e
+2024-03-05 21:35:17,307 - basicLogger - INFO - Returned event products response (Id: e42655d9-8af9-4fd1-9ad5-476654bd563e) with status 201

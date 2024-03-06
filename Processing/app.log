@@ -25937,3 +25937,285 @@
 2024-03-04 23:11:46,606 - basicLogger - INFO - Start Periodic Processing
 2024-03-04 23:11:50,700 - basicLogger - INFO - Product response status code: 500
 2024-03-04 23:11:50,700 - basicLogger - INFO - Order response status code: 500
+2024-03-05 20:57:40,633 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 20:57:40,644 - basicLogger - ERROR - (sqlite3.OperationalError) no such table: stats
+[SQL: SELECT stats.id AS stats_id, stats.number_products AS stats_number_products, stats.number_orders AS stats_number_orders, stats.highest_product_price AS stats_highest_product_price, stats.highest_order_price AS stats_highest_order_price, stats.highest_product_quantity AS stats_highest_product_quantity, stats.highest_order_quantity AS stats_highest_order_quantity, stats.created_at AS stats_created_at 
+FROM stats
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-03-05 20:58:11,391 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 20:58:15,711 - basicLogger - INFO - Product response status code: 500
+2024-03-05 20:58:15,711 - basicLogger - INFO - Order response status code: 500
+2024-03-05 20:58:16,390 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 20:58:20,522 - basicLogger - INFO - Product response status code: 500
+2024-03-05 20:58:20,522 - basicLogger - INFO - Order response status code: 500
+2024-03-05 20:59:11,358 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 20:59:15,601 - basicLogger - INFO - Product response status code: 500
+2024-03-05 20:59:15,602 - basicLogger - INFO - Order response status code: 500
+2024-03-05 20:59:16,351 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 20:59:20,444 - basicLogger - INFO - Product response status code: 500
+2024-03-05 20:59:20,444 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:04:28,543 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:04:32,665 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:04:32,666 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:04:33,537 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:04:37,644 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:04:37,644 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:04:38,552 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:04:42,652 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:04:42,652 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:04:56,506 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:05:00,749 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:05:00,749 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:05:01,501 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:05:05,617 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:05:05,617 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:10:31,530 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:10:35,630 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:10:35,631 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:10:36,524 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:10:40,636 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:10:40,636 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:11:41,271 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:11:45,376 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:11:45,376 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:11:46,279 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:11:50,377 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:11:50,377 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:12:36,164 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:12:40,257 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:12:40,257 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:12:41,166 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:12:45,262 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:12:45,262 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:13:51,703 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:13:55,813 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:13:55,813 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:13:56,702 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:14:00,805 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:14:00,805 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:22:38,706 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:22:42,922 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:22:42,924 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:22:43,708 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:22:47,805 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:22:47,805 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:23:18,814 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:23:23,019 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:23:23,019 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:23:23,821 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:23:27,910 - basicLogger - INFO - Product response status code: 500
+2024-03-05 21:23:27,910 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:24:44,887 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:24:49,125 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:24:49,125 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:24:49,887 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:24:53,981 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:24:53,981 - basicLogger - INFO - Order response status code: 500
+2024-03-05 21:27:00,413 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:04,650 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:27:04,650 - basicLogger - INFO - Order response status code: 200
+2024-03-05 21:27:11,322 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:15,432 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:27:15,432 - basicLogger - INFO - Order response status code: 200
+2024-03-05 21:27:16,323 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:20,421 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:27:20,421 - basicLogger - INFO - Order response status code: 200
+2024-03-05 21:27:21,327 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:25,422 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:27:25,422 - basicLogger - INFO - Order response status code: 200
+2024-03-05 21:27:26,331 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:30,415 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:27:30,415 - basicLogger - INFO - Order response status code: 200
+2024-03-05 21:27:31,325 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:35,426 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:27:35,426 - basicLogger - INFO - Order response status code: 200
+2024-03-05 21:27:36,332 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:40,455 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:27:40,455 - basicLogger - INFO - Order response status code: 200
+2024-03-05 21:27:41,335 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:45,421 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:27:45,421 - basicLogger - INFO - Order response status code: 200
+2024-03-05 21:27:46,327 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:50,420 - basicLogger - INFO - Product response status code: 200
+2024-03-05 21:27:50,420 - basicLogger - INFO - Order response status code: 200
+2024-03-05 21:27:51,331 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:27:57,465 - basicLogger - ERROR - HTTPConnectionPool(host='localhost', port=8090): Max retries exceeded with url: /orders?start_timestamp=2024-03-06+05%3A10%3A31&end_timestamp=2024-03-06+05%3A27%3A51 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000017420F87E90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-03-05 21:35:27,334 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:37:18,044 - basicLogger - ERROR - ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2024-03-05 21:38:13,192 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 21:40:48,580 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:03:52,434 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:03:56,537 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:03:56,537 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:03:57,445 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:04:01,545 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:04:01,545 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:04:02,438 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:04:06,535 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:04:06,535 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:12:02,575 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:12:06,670 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:12:06,670 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:12:07,580 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:12:11,674 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:12:11,674 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:13:02,609 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:13:06,707 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:13:06,707 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:13:07,597 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:13:11,692 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:13:11,692 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:15:46,655 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:15:50,775 - basicLogger - INFO - {'date_created': '2024-03-06T05:35:17Z', 'id': 1, 'name': 'product1', 'price': 49.99, 'product_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'quantity': 100, 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}
+2024-03-05 22:15:50,775 - basicLogger - INFO - {'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'date_created': '2024-03-06T05:35:13Z', 'id': 1, 'order_date': '2024-01-11T12:30:00Z', 'quantity': 12, 'total_price': 99.99, 'trace_id': '65803563-ba56-4a4a-887b-c8d5a6f85971'}
+2024-03-05 22:15:50,775 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:15:50,775 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:15:51,654 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:15:55,737 - basicLogger - INFO - {'date_created': '2024-03-06T05:35:17Z', 'id': 1, 'name': 'product1', 'price': 49.99, 'product_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'quantity': 100, 'trace_id': 'e42655d9-8af9-4fd1-9ad5-476654bd563e'}
+2024-03-05 22:15:55,737 - basicLogger - INFO - {'customer_id': 'a1b2c3d4-1234-5678-abcd-0123456789ab', 'date_created': '2024-03-06T05:35:13Z', 'id': 1, 'order_date': '2024-01-11T12:30:00Z', 'quantity': 12, 'total_price': 99.99, 'trace_id': '65803563-ba56-4a4a-887b-c8d5a6f85971'}
+2024-03-05 22:15:55,738 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:15:55,738 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:29:19,949 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:29:24,059 - basicLogger - ERROR - 3
+2024-03-05 22:29:24,059 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:29:24,059 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:29:24,948 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:29:29,043 - basicLogger - ERROR - 3
+2024-03-05 22:29:29,043 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:29:29,043 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:31:06,296 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:31:10,414 - basicLogger - ERROR - 3
+2024-03-05 22:31:10,414 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:31:10,414 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:31:11,287 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:31:15,403 - basicLogger - ERROR - 3
+2024-03-05 22:31:15,403 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:31:15,403 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:32:30,384 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:32:34,484 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:32:34,485 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:32:35,376 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:32:39,475 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:32:39,475 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:33:05,869 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:33:09,967 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:33:09,968 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:33:10,864 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:33:14,973 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:33:14,973 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:33:15,869 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:33:19,977 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:33:19,977 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:33:20,867 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:33:24,979 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:33:24,980 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:33:57,231 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:34:01,365 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:34:01,365 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:34:02,246 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:34:06,347 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:34:06,347 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:36:18,990 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:36:23,083 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:36:23,083 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:36:23,979 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:36:28,056 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:36:28,056 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:37:29,198 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:37:33,322 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:37:33,322 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:37:34,200 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:37:38,285 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:37:38,285 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:37:39,205 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:37:43,298 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:37:43,298 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:37:44,197 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:37:48,298 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:37:48,298 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:37:49,192 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:37:53,306 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:37:53,307 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:43:59,300 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:44:03,402 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:44:03,402 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:44:04,299 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:44:08,402 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:44:08,404 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:44:09,305 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:44:13,411 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:44:13,411 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:44:14,297 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:44:18,395 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:44:18,395 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:45:47,914 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:45:47,916 - basicLogger - ERROR - 'Query' object has no attribute 'last'
+2024-03-05 22:46:50,998 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:46:51,000 - basicLogger - ERROR - name 'desc' is not defined
+2024-03-05 22:47:33,769 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:47:37,864 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:47:37,865 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:47:38,766 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:47:42,874 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:47:42,874 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:47:43,772 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:47:47,879 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:47:47,880 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:47:48,770 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:47:52,847 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:47:52,847 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:47:53,764 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:47:57,858 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:47:57,858 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:49:28,817 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:49:32,940 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:49:32,942 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:49:33,810 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:49:37,914 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:49:37,915 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:50:00,566 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:50:04,678 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:50:04,679 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:50:05,574 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:50:09,671 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:50:09,671 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:50:42,836 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:50:46,932 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:50:46,932 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:50:47,833 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:50:51,945 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:50:51,946 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:51:02,834 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:51:06,935 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:51:06,935 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:51:07,830 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:51:11,944 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:51:11,944 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:51:52,676 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:51:56,806 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:51:56,806 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:51:57,691 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:52:01,808 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:52:01,808 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:53:38,348 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:53:42,470 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:53:42,471 - basicLogger - INFO - Order response status code: 200
+2024-03-05 22:54:50,473 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 22:54:54,608 - basicLogger - INFO - Product response status code: 200
+2024-03-05 22:54:54,608 - basicLogger - INFO - Order response status code: 200
+2024-03-05 23:00:07,968 - basicLogger - INFO - Start Periodic Processing
+2024-03-05 23:00:12,084 - basicLogger - INFO - Product response status code: 200
+2024-03-05 23:00:12,085 - basicLogger - INFO - Order response status code: 200
+2024-03-05 23:00:12,086 - basicLogger - DEBUG - Updated statistics: {'number_products': 1, 'number_orders': 1, 'highest_product_price': 25.99, 'highest_order_price': 78.99, 'highest_product_quantity': 10, 'highest_order_quantity': 10, 'created_at': '2024-03-06 07:00:12'}
+2024-03-05 23:06:09,571 - basicLogger - INFO - Request for statistics has started
+2024-03-05 23:06:23,179 - basicLogger - INFO - Request for statistics has started
+2024-03-05 23:06:44,996 - basicLogger - INFO - Request for statistics has started
+2024-03-05 23:06:45,001 - basicLogger - ERROR - 'str' object has no attribute 'strftime'
+2024-03-05 23:07:43,049 - basicLogger - INFO - Request for statistics has started
+2024-03-05 23:07:43,053 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 1, 'number_orders': 1, 'highest_product_price': 25.99, 'highest_order_price': 78.99, 'highest_product_quantity': 10, 'highest_order_quantity': 10, 'created_at': '2024-03-06 07:00:12'}
+2024-03-05 23:07:43,053 - basicLogger - INFO - Request for statistics has completed
+2024-03-05 23:08:47,383 - basicLogger - INFO - Request for statistics has started
+2024-03-05 23:08:47,388 - basicLogger - DEBUG - Statistics dictionary: {'number_products': 1, 'number_orders': 1, 'highest_product_price': 25.99, 'highest_order_price': 78.99, 'highest_product_quantity': 10, 'highest_order_quantity': 10, 'created_at': '2024-03-06 07:00:12'}
+2024-03-05 23:08:47,388 - basicLogger - INFO - Request for statistics has completed

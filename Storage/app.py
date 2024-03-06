@@ -56,47 +56,6 @@ def createProduct(body):
         db_conn.close()
 
 
-def getProductEvents(start_timestamp, end_timestamp):
-    logging.info("connected")
-    db_conn = get_db_connection()
-    db_cursor = db_conn.cursor()
-    try:
-
-        start_timestamp_datetime = datetime.strptime(
-            start_timestamp, "%Y-%m-%dT%H:%M:%S"
-        )
-        end_timestamp_datetime = datetime.strptime(end_timestamp, "%Y-%m-%d %H:%M:%S")
-
-        query = "SELECT * FROM products WHERE date_created >= ? AND date_created < ?"
-        db_cursor.execute(query, (start_timestamp_datetime, end_timestamp_datetime))
-
-        results = db_cursor.fetchall()
-
-        db_cursor.close()
-        db_conn.close()
-
-        results_list = []
-        for row in results:
-            reading_dict = {
-                "id": row[0],
-                "product_id": row[1],
-                "name": row[2],
-                "price": row[3],
-                "quantity": row[4],
-                "date_created": row[5],
-                "trace_id": row[6],
-            }
-            results_list.append(reading_dict)
-
-    except Exception as e:
-        logging.error(e)
-    finally:
-        logger.info(
-            "Query for products after %s returns %d results"
-            % (start_timestamp, len(results_list))
-        )
-
-
 def processOrder(body):
     try:
         db_conn = get_db_connection()
@@ -140,38 +99,87 @@ def processOrder(body):
         db_conn.close()
 
 
-def getOrderEvents(start_timestamp, end_timestamp):
+def getProductEvents(start_timestamp, end_timestamp):
+    logging.info("connected")
     db_conn = get_db_connection()
     db_cursor = db_conn.cursor()
+    try:
+        start_timestamp_datetime = datetime.strptime(
+            start_timestamp, "%Y-%m-%d %H:%M:%S"
+        )
+        end_timestamp_datetime = datetime.strptime(end_timestamp, "%Y-%m-%d %H:%M:%S")
 
-    start_timestamp_datetime = datetime.strptime(start_timestamp, "%Y-%m-%d %H:%M:%S")
-    end_timestamp_datetime = datetime.strptime(end_timestamp, "%Y-%m-%d %H:%M:%S")
+        query = "SELECT * FROM products WHERE date_created >= %s AND date_created < %s"
+        db_cursor.execute(query, (start_timestamp_datetime, end_timestamp_datetime))
 
-    query = "SELECT * FROM orders WHERE date_created >= ? AND date_created < ?"
-    db_cursor.execute(query, (start_timestamp_datetime, end_timestamp_datetime))
+        results = db_cursor.fetchall()
 
-    results = db_cursor.fetchall()
+        db_cursor.close()
+        db_conn.close()
 
-    db_cursor.close()
-    db_conn.close()
+        results_list = []
+        for row in results:
+            reading_dict = {
+                "id": row[0],
+                "product_id": row[1],
+                "name": row[2],
+                "price": row[3],
+                "quantity": row[4],
+                "date_created": row[5],
+                "trace_id": row[6],
+            }
+            results_list.append(reading_dict)
+        logger.info(results_list)
+        return results_list
+    except Exception as e:
+        logging.error(e)
+        return None
+    finally:
+        logger.info(
+            "Query for products after %s returns %d results"
+            % (start_timestamp, len(results_list))
+        )
 
-    results_list = []
-    for row in results:
-        reading_dict = {
-            "id": row[0],
-            "customer_id": row[1],
-            "order_date": row[2],
-            "quantity": row[3],
-            "total_price": row[4],
-            "date_created": row[5],
-            "trace_id": row[6],
-        }
-        results_list.append(reading_dict)
 
-    logger.info(
-        "Query for orders after %s returns %d results"
-        % (start_timestamp, len(results_list))
-    )
+def getOrderEvents(start_timestamp, end_timestamp):
+    try:
+        db_conn = get_db_connection()
+        db_cursor = db_conn.cursor()
+
+        start_timestamp_datetime = datetime.strptime(
+            start_timestamp, "%Y-%m-%d %H:%M:%S"
+        )
+        end_timestamp_datetime = datetime.strptime(end_timestamp, "%Y-%m-%d %H:%M:%S")
+
+        query = "SELECT * FROM orders WHERE date_created >= %s AND date_created < %s"
+        db_cursor.execute(query, (start_timestamp_datetime, end_timestamp_datetime))
+
+        results = db_cursor.fetchall()
+
+        db_cursor.close()
+        db_conn.close()
+
+        results_list = []
+        for row in results:
+            reading_dict = {
+                "id": row[0],
+                "customer_id": row[1],
+                "order_date": row[2],
+                "quantity": row[3],
+                "total_price": row[4],
+                "date_created": row[5],
+                "trace_id": row[6],
+            }
+            results_list.append(reading_dict)
+        logger.info(results_list)
+        return results_list
+    except Exception as e:
+        logging.error(e)
+    finally:
+        logger.info(
+            "Query for orders after %s returns %d results"
+            % (start_timestamp, len(results_list))
+        )
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
