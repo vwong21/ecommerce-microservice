@@ -19,6 +19,8 @@ DB_ENGINE = create_engine("sqlite:///%s" % app_config["datastore"]["filename"])
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
+eventstore_url = app_config["eventstore"]["url"]
+
 with open("log_conf.yaml", "r") as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
@@ -26,14 +28,14 @@ with open("log_conf.yaml", "r") as f:
 logger = logging.getLogger("basicLogger")
 
 
-def get_latest_datetime():
+def get_latest_datetime(current_datetime):
     session = DB_SESSION()
     try:
         latest_stat = session.query(Stats).order_by(Stats.created_at.desc()).first()
         if latest_stat:
             latest_datetime = latest_stat.created_at
         else:
-            latest_datetime = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+            latest_datetime = current_datetime
     except Exception as e:
         logger.error(e)
     finally:
@@ -41,19 +43,20 @@ def get_latest_datetime():
     return latest_datetime
 
 
-def calculate_stats(product_res, order_res):
+def calculate_stats(product_res, order_res, current_datetime_object):
     try:
         session = DB_SESSION()
-
         product_res_json = product_res.json()
         order_res_json = order_res.json()
 
-        number_products = 0
-        number_orders = 0
-        highest_product_price = 0
-        highest_order_price = 0
-        highest_product_quantity = 0
-        highest_order_quantity = 0
+        latest_stat = session.query(Stats).order_by(Stats.created_at.desc()).first()
+
+        number_products = latest_stat.number_products
+        number_orders = latest_stat.number_orders
+        highest_product_price = latest_stat.highest_product_price
+        highest_order_price = latest_stat.highest_order_price
+        highest_product_quantity = latest_stat.highest_product_quantity
+        highest_order_quantity = latest_stat.highest_order_quantity
 
         for product in product_res_json:
             number_products += 1
@@ -76,7 +79,7 @@ def calculate_stats(product_res, order_res):
             highest_order_price=highest_order_price,
             highest_product_quantity=highest_product_quantity,
             highest_order_quantity=highest_order_quantity,
-            created_at=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
+            created_at=current_datetime_object,
         )
         session.add(stats)
         session.commit()
@@ -88,6 +91,8 @@ def calculate_stats(product_res, order_res):
 
 def populate_stats():
     logger.info("Start Periodic Processing")
+    current_datetime_object = datetime.utcnow()
+    current_datetime = current_datetime_object.strftime("%Y-%m-%d %H:%M:%S")
     session = DB_SESSION()
     try:
         stats = session.query(Stats).order_by(desc(Stats.created_at)).first()
@@ -99,15 +104,15 @@ def populate_stats():
                 highest_order_price=0.0,
                 highest_product_quantity=0,
                 highest_order_quantity=0,
-                created_at=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
+                created_at=current_datetime_object,
             )
             session.add(stats)
             session.commit()
 
-        current_datetime = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-        last_datetime = get_latest_datetime()
-        product_endpoint = "http://localhost:8090/products"
-        order_endpoint = "http://localhost:8090/orders"
+        # last_datetime = get_latest_datetime(current_datetime)
+        last_datetime = stats.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        product_endpoint = f"{eventstore_url}/products"
+        order_endpoint = f"{eventstore_url}/orders"
 
         response_product = requests.get(
             product_endpoint,
@@ -125,7 +130,7 @@ def populate_stats():
             },
         )
 
-        calculate_stats(response_product, response_order)
+        calculate_stats(response_product, response_order, current_datetime_object)
 
         logger.info(f"Product response status code: {response_product.status_code}")
         logger.info(f"Order response status code: {response_order.status_code}")
