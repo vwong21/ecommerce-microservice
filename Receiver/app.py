@@ -54,12 +54,12 @@ def send_to_kafka(event_type, event_data):
 
 def createProduct(body):
     send_to_kafka("products", body)
-    return NoContent, 201
+    return {"message": "Product creation request received successfully"}, 201
 
 
 def processOrder(body):
     send_to_kafka("orders", body)
-    return NoContent, 201
+    return {"message": "Order creation request received successfully"}, 201
 
 
 if __name__ == "__main__":
