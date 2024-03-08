@@ -1,0 +1,131 @@
+openapi: 3.0.0
+info:
+  description: This API provides audit info
+  version: "1.0.0"
+  title: Audit API
+  contact:
+    email: vincentwong5609@gmail.com
+paths:
+  /products:
+    get:
+      summary: gets product information from history
+      operationId: app.getProductInformation
+      description: Gets product information from event store
+      parameters:
+        - name: index
+          in: query
+          description: Gets the product at the index in the event store
+          schema:
+            type: integer
+          example: 100
+      responses:
+        "200":
+          description: Successfully returned a product event
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ProductInformation"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /orders:
+    get:
+      summary: gets order information from history
+      operationId: app.getOrderInformation
+      description: Gets order information from the event store
+      parameters:
+        - name: index
+          in: query
+          description: Gets the order at the index in the event store
+          schema:
+            type: integer
+          example: 100
+      responses:
+        "200":
+          description: Successfully returned an order event
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/OrderInformation"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    ProductInformation:
+      required:
+        - name
+        - price
+        - product_id
+        - quantity
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          example: a1b2c3d4-1234-5678-abcd-0123456789ab
+        name:
+          type: string
+          example: product1
+        price:
+          type: number
+          format: double
+          example: 49.99
+        quantity:
+          type: integer
+          example: 100
+      type: object
+    OrderInformation:
+      required:
+        - customer_id
+        - order_date
+        - quantity
+        - total_price
+      type: object
+      properties:
+        customer_id:
+          type: string
+          format: uuid
+          example: a1b2c3d4-1234-5678-abcd-0123456789ab
+        order_date:
+          type: string
+          format: date-time
+          example: 2024-01-11T12:30:00Z
+        quantity:
+          type: integer
+          example: 100
+        total_price:
+          type: number
+          format: double
+          example: 99.99
