@@ -1,11 +1,15 @@
 import connexion
-from connexion import NoContent
 import mysql.connector
-from datetime import datetime
-from dateutil.parser import parse as parse_date
-import yaml
-import logging.config
+import json
 import logging
+import logging.config
+import yaml
+from connexion import NoContent
+from datetime import datetime, timezone
+from dateutil.parser import parse as parse_date
+from pykafka import KafkaClient
+from pykafka.common import OffsetType
+from threading import Thread
 
 with open("log_conf.yaml", "r") as f:
     log_config = yaml.safe_load(f.read())
@@ -21,84 +25,6 @@ def get_db_connection():
 
 
 logger = logging.getLogger("basicLogger")
-
-def createProduct(body):
-    try:
-        db_conn = get_db_connection()
-        db_cursor = db_conn.cursor()
-        logging.info(f"Connecting to DB. Hostname: {DATABASE_CONFIG["host"]}, Port: {DATABASE_CONFIG["port"]}")
-
-        product_id = body.get("product_id")
-        name = body.get("name")
-        price = body.get("price")
-        quantity = body.get("quantity")
-        date_created = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-        trace_id = body.get("trace_id")
-
-        query = "INSERT INTO products (product_id, name, price, quantity, date_created, trace_id) VALUES (%s, %s, %s, %s, %s, %s)"
-        values = (product_id, name, price, quantity, date_created, trace_id)
-
-        db_cursor.execute(query, values)
-        db_conn.commit()
-
-        logger.debug(
-            f"Stored event 'create_product' request with a trace id of {trace_id}"
-        )
-
-        return NoContent, 201
-
-    except Exception as e:
-        logger.error(e)
-        return NoContent, 500
-
-    finally:
-        db_cursor.close()
-        db_conn.close()
-
-
-def processOrder(body):
-    try:
-        db_conn = get_db_connection()
-        db_cursor = db_conn.cursor()
-        logging.info(f"Connecting to DB. Hostname: {DATABASE_CONFIG["host"]}, Port: {DATABASE_CONFIG["port"]}")
-
-        customer_id = body.get("customer_id")
-        order_date_str = body.get("order_date")
-        order_date = parse_date(order_date_str)
-        order_date_formatted = order_date.strftime("%Y-%m-%d %H:%M:%S")
-        quantity = body.get("quantity")
-        total_price = body.get("total_price")
-        date_created = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-        trace_id = body.get("trace_id")
-
-        query = "INSERT INTO orders (customer_id, order_date, quantity, total_price, date_created, trace_id) VALUES (%s, %s, %s, %s, %s, %s)"
-        values = (
-            customer_id,
-            order_date_formatted,
-            quantity,
-            total_price,
-            date_created,
-            trace_id,
-        )
-
-        db_cursor.execute(query, values)
-        db_conn.commit()
-
-        trace_id = body.get("trace_id")
-        logger.debug(
-            f"Stored event 'create_order' request with a trace id of {trace_id}"
-        )
-
-        return NoContent, 201
-
-    except Exception as e:
-        logger.error(e)
-        return NoContent, 500
-
-    finally:
-        db_cursor.close()
-        db_conn.close()
-
 
 def getProductEvents(start_timestamp, end_timestamp):
     db_conn = get_db_connection()
@@ -184,9 +110,84 @@ def getOrderEvents(start_timestamp, end_timestamp):
             % (start_timestamp, len(results_list))
         )
 
+def process_messages():
+    try:
+        events = app_config["events"]
+        hostname = "%s:%d" % (events["hostname"], events["port"])
+        client = KafkaClient(hosts=hostname)
+        topic = client.topics[str.encode(events["topic"])]
+        consumer = topic.get_simple_consumer(consumer_group=b'event_group', reset_offset_on_start=False, auto_offset_reset=OffsetType.LATEST)
+
+        for msg in consumer:
+            msg_str = msg.value.decode('utf-8')
+            msg = json.loads(msg_str)
+            logger.info("Message: %s" % msg)
+
+            payload = msg["payload"]
+
+            if msg["type"] == "products":
+                db_conn = get_db_connection()
+                db_cursor = db_conn.cursor()
+                
+                logging.info("Connected to database")
+
+                product_id = payload["product_id"]
+                name = payload["name"]
+                price = payload["price"]
+                quantity = payload["quantity"]
+                date_created = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+                trace_id = payload["trace_id"]
+
+                query = "INSERT INTO products (product_id, name, price, quantity, date_created, trace_id) VALUES (%s, %s, %s, %s, %s, %s)"
+                values = (product_id, name, price, quantity, date_created, trace_id)
+
+                db_cursor.execute(query, values)
+                db_conn.commit()
+
+                logger.debug(
+                f"Stored event 'create_product' request with a trace id of {payload["trace_id"]}")
+
+            elif msg["type"] == "orders":
+                db_conn = get_db_connection()
+                db_cursor = db_conn.cursor()
+
+                customer_id = payload["customer_id"]
+                order_date_str = payload["order_date"]
+                order_date = parse_date(order_date_str)
+                order_date_formatted = order_date.strftime("%Y-%m-%d %H:%M:%S")
+                quantity = payload["quantity"]
+                total_price = payload["total_price"]
+                date_created = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+                trace_id = payload["trace_id"]
+
+                query = "INSERT INTO orders (customer_id, order_date, quantity, total_price, date_created, trace_id) VALUES (%s, %s, %s, %s, %s, %s)"
+                values = (
+                customer_id,
+                order_date_formatted,
+                quantity,
+                total_price,
+                date_created,
+                trace_id,
+            )
+                db_cursor.execute(query, values)
+                db_conn.commit()
+
+                logger.debug(
+                f"Stored event 'create_order' request with a trace id of {payload['trace_id']}")
+
+            consumer.commit_offsets()
+    except Exception as e:
+        logger.error(e)
+    
+    finally:
+        db_cursor.close()
+        db_conn.close()
 
 app = connexion.FlaskApp(__name__, specification_dir="")
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
+    t1 = Thread(target=process_messages)
+    t1.setDaemon(True)
+    t1.start()
     app.run(port=8090)

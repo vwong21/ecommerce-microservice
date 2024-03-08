@@ -1,5 +1,5 @@
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 
 conn = sqlite3.connect("stats.sqlite")
 
@@ -26,7 +26,7 @@ data = (
     0.0,  # highest_order_price
     0,  # highest_product_quantity
     0,  # highest_order_quantity
-    datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),  # created_at
+    datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),  # created_at
 )
 
 # Insert data into the table

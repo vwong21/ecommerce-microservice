@@ -4,7 +4,7 @@ import logging
 import logging.config
 import requests
 from flask import jsonify
-from datetime import datetime
+from datetime import datetime, timezone
 from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
@@ -91,7 +91,7 @@ def calculate_stats(product_res, order_res, current_datetime_object):
 
 def populate_stats():
     logger.info("Start Periodic Processing")
-    current_datetime_object = datetime.utcnow()
+    current_datetime_object = datetime.now(timezone.utc)
     current_datetime = current_datetime_object.strftime("%Y-%m-%d %H:%M:%S")
     session = DB_SESSION()
     try:

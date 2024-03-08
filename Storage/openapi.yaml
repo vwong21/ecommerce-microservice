@@ -14,25 +14,6 @@ tags:
     description: Operations related to orders
 paths:
   /products:
-    post:
-      tags:
-        - products
-      summary: creates a new product
-      description: Adds a new product to the catalogue
-      operationId: app.createProduct
-      requestBody:
-        description: Product information to add
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Product"
-      responses:
-        "201":
-          description: Product created
-        "400":
-          description: "invalid input, object invalid"
-        "409":
-          description: an existing product already exists
     get:
       tags:
         - products
@@ -73,23 +54,6 @@ paths:
                   message:
                     type: string
   /orders:
-    post:
-      tags:
-        - orders
-      summary: processes a new order
-      description: Processes a customer's order
-      operationId: app.processOrder
-      requestBody:
-        description: Order information to process
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Order"
-      responses:
-        "201":
-          description: Order processed
-        "400":
-          description: "invalid input, object invalid"
     get:
       tags:
         - orders

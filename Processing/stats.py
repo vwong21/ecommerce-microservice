@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, DateTime, Float
 from base import Base
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class Stats(Base):
@@ -32,7 +32,7 @@ class Stats(Base):
         self.highest_product_quantity = highest_product_quantity
         self.highest_order_quantity = highest_order_quantity
         if created_at is None:
-            self.created_at = datetime.utcnow()
+            self.created_at = datetime.now(timezone.utc)
         else:
             self.created_at = created_at
 
