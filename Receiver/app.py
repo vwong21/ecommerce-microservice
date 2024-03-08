@@ -2,6 +2,7 @@ import connexion
 from connexion import NoContent
 import json
 from datetime import datetime
+from pykafka import KafkaClient
 import requests
 import yaml
 import logging
@@ -24,37 +25,58 @@ with open("app_conf.yaml", "r") as f:
     app_config = yaml.safe_load(f.read())
 
 
-def send_to_storage_service(event_type, event_data):
+def send_to_kafka(event_type, event_data):
+    events = app_config["events"]
+    kafka_server = events["hostname"]
+    kafka_port = events["port"]
+    kafka_topic = events["topic"]
 
-    storage_url = app_config.get(event_type, {}).get("url")
-    headers = {"Content-Type": "application/json"}
-    trace_id = str(uuid.uuid4())
+    client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
+    topic = client.topics[str.encode(kafka_topic)]
+    producer = topic.get_sync_producer()
 
-    if not storage_url:
-        logger.error(f"Unknown event type {event_type}")
-        return
+    msg = {
+        "type": event_type,
+        "datetime": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "payload": event_data,
+    }
+    msg_str = json.dumps(msg)
+    producer.produce(msg_str.encode("utf-8"))
 
-    try:
-        logger.info(
-            f"Received event {event_type} request with a trace id of {trace_id}"
-        )
-        event_data["trace_id"] = trace_id
-        response = requests.post(storage_url, json=event_data, headers=headers)
-        response.raise_for_status()
-        logger.info(
-            f"Returned event {event_type} response (Id: {trace_id}) with status {response.status_code}"
-        )
-    except requests.exceptions.RequestException as e:
-        logger.error(e)
+
+# def send_to_storage_service(event_type, event_data):
+
+#     storage_url = app_config.get(event_type, {}).get("url")
+#     headers = {"Content-Type": "application/json"}
+#     trace_id = str(uuid.uuid4())
+
+#     if not storage_url:
+#         logger.error(f"Unknown event type {event_type}")
+#         return
+
+#     try:
+#         logger.info(
+#             f"Received event {event_type} request with a trace id of {trace_id}"
+#         )
+#         event_data["trace_id"] = trace_id
+#         response = requests.post(storage_url, json=event_data, headers=headers)
+#         response.raise_for_status()
+#         logger.info(
+#             f"Returned event {event_type} response (Id: {trace_id}) with status {response.status_code}"
+#         )
+#     except requests.exceptions.RequestException as e:
+#         logger.error(e)
 
 
 def createProduct(body):
-    send_to_storage_service("products", body)
+    # send_to_storage_service("products", body)
+    send_to_kafka("products", body)
     return NoContent, 201
 
 
 def processOrder(body):
-    send_to_storage_service("orders", body)
+    # send_to_storage_service("orders", body)
+    send_to_kafka("orders", body)
     return NoContent, 201
 
 
