@@ -1,6 +1,14 @@
 version: 1
 database:
-  host: localhost
+  host: kafka-acit3855-lab6.eastus.cloudapp.azure.com
   user: root
   password: password
   database: ecommerce
+  port: 3306
+# version: 1
+# database:
+#   host: localhost
+#   user: root
+#   password: password
+#   database: ecommerce
+#   port: 3306

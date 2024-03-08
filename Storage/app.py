@@ -22,11 +22,11 @@ def get_db_connection():
 
 logger = logging.getLogger("basicLogger")
 
-
 def createProduct(body):
     try:
         db_conn = get_db_connection()
         db_cursor = db_conn.cursor()
+        logging.info(f"Connecting to DB. Hostname: {DATABASE_CONFIG["host"]}, Port: {DATABASE_CONFIG["port"]}")
 
         product_id = body.get("product_id")
         name = body.get("name")
@@ -60,6 +60,7 @@ def processOrder(body):
     try:
         db_conn = get_db_connection()
         db_cursor = db_conn.cursor()
+        logging.info(f"Connecting to DB. Hostname: {DATABASE_CONFIG["host"]}, Port: {DATABASE_CONFIG["port"]}")
 
         customer_id = body.get("customer_id")
         order_date_str = body.get("order_date")
@@ -100,9 +101,10 @@ def processOrder(body):
 
 
 def getProductEvents(start_timestamp, end_timestamp):
-    logging.info("connected")
     db_conn = get_db_connection()
     db_cursor = db_conn.cursor()
+    logging.info(f"Connecting to DB. Hostname: {DATABASE_CONFIG["host"]}, Port: {DATABASE_CONFIG["port"]}")
+    
     try:
         start_timestamp_datetime = datetime.strptime(
             start_timestamp, "%Y-%m-%d %H:%M:%S"
@@ -145,6 +147,7 @@ def getOrderEvents(start_timestamp, end_timestamp):
     try:
         db_conn = get_db_connection()
         db_cursor = db_conn.cursor()
+        logging.info(f"Connecting to DB. Hostname: {DATABASE_CONFIG["host"]}, Port: {DATABASE_CONFIG["port"]}")
 
         start_timestamp_datetime = datetime.strptime(
             start_timestamp, "%Y-%m-%d %H:%M:%S"

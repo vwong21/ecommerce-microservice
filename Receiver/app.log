@@ -7456,3 +7456,55 @@
 2024-03-05 21:35:13,373 - basicLogger - INFO - Returned event orders response (Id: 65803563-ba56-4a4a-887b-c8d5a6f85971) with status 201
 2024-03-05 21:35:15,253 - basicLogger - INFO - Received event products request with a trace id of e42655d9-8af9-4fd1-9ad5-476654bd563e
 2024-03-05 21:35:17,307 - basicLogger - INFO - Returned event products response (Id: e42655d9-8af9-4fd1-9ad5-476654bd563e) with status 201
+2024-03-05 22:07:51,074 - basicLogger - INFO - Received event products request with a trace id of f6802e91-f192-4f25-bb3c-511b496c1ba9
+2024-03-05 22:07:53,259 - basicLogger - INFO - Returned event products response (Id: f6802e91-f192-4f25-bb3c-511b496c1ba9) with status 201
+2024-03-05 22:08:14,382 - basicLogger - INFO - Received event products request with a trace id of 659eca94-2ead-48e1-a8cd-c717f3708990
+2024-03-05 22:08:16,423 - basicLogger - INFO - Returned event products response (Id: 659eca94-2ead-48e1-a8cd-c717f3708990) with status 201
+2024-03-05 22:09:44,131 - basicLogger - INFO - Received event orders request with a trace id of 5d2085ff-da32-4dff-90d7-442fe2205cd0
+2024-03-05 22:09:46,185 - basicLogger - INFO - Returned event orders response (Id: 5d2085ff-da32-4dff-90d7-442fe2205cd0) with status 201
+2024-03-05 22:10:02,133 - basicLogger - INFO - Received event orders request with a trace id of b319581f-4b89-4374-8ea7-c9b1ad0f4862
+2024-03-05 22:10:04,184 - basicLogger - INFO - Returned event orders response (Id: b319581f-4b89-4374-8ea7-c9b1ad0f4862) with status 201
+2024-03-05 22:43:07,481 - basicLogger - INFO - Received event orders request with a trace id of b272ee5c-9d89-4a82-a8b6-55f5b0a442d9
+2024-03-05 22:43:09,534 - basicLogger - INFO - Returned event orders response (Id: b272ee5c-9d89-4a82-a8b6-55f5b0a442d9) with status 201
+2024-03-05 22:43:21,690 - basicLogger - INFO - Received event orders request with a trace id of 9727834f-352e-4970-b4b6-c6ec16d60782
+2024-03-05 22:43:23,757 - basicLogger - INFO - Returned event orders response (Id: 9727834f-352e-4970-b4b6-c6ec16d60782) with status 201
+2024-03-05 22:43:34,988 - basicLogger - INFO - Received event products request with a trace id of 61fdb5ed-4aea-4cdd-8f19-c91df9400b07
+2024-03-05 22:43:37,041 - basicLogger - INFO - Returned event products response (Id: 61fdb5ed-4aea-4cdd-8f19-c91df9400b07) with status 201
+2024-03-05 22:43:44,884 - basicLogger - INFO - Received event products request with a trace id of 5f6ce59c-7ae3-49a0-b8ac-21668164173c
+2024-03-05 22:43:46,922 - basicLogger - INFO - Returned event products response (Id: 5f6ce59c-7ae3-49a0-b8ac-21668164173c) with status 201
+2024-03-05 22:45:07,856 - basicLogger - INFO - Received event products request with a trace id of 5877dcd4-93d7-4ab1-a312-82a3996c4434
+2024-03-05 22:45:09,921 - basicLogger - INFO - Returned event products response (Id: 5877dcd4-93d7-4ab1-a312-82a3996c4434) with status 201
+2024-03-05 22:45:19,814 - basicLogger - INFO - Received event products request with a trace id of fe54ba09-2dff-4eaf-a6a7-e7b165e1ddf5
+2024-03-05 22:45:21,871 - basicLogger - INFO - Returned event products response (Id: fe54ba09-2dff-4eaf-a6a7-e7b165e1ddf5) with status 201
+2024-03-05 22:45:30,005 - basicLogger - INFO - Received event orders request with a trace id of 8d46bf08-c27c-401a-946a-7276b0ae64e6
+2024-03-05 22:45:32,052 - basicLogger - INFO - Returned event orders response (Id: 8d46bf08-c27c-401a-946a-7276b0ae64e6) with status 201
+2024-03-05 22:45:36,343 - basicLogger - INFO - Received event orders request with a trace id of 2f12b1d5-dfbf-4713-a616-e665399e1dcd
+2024-03-05 22:45:38,401 - basicLogger - INFO - Returned event orders response (Id: 2f12b1d5-dfbf-4713-a616-e665399e1dcd) with status 201
+2024-03-05 22:53:03,172 - basicLogger - INFO - Received event orders request with a trace id of 56bc5837-dbfe-47cb-8fd1-50680c815403
+2024-03-05 22:53:05,215 - basicLogger - INFO - Returned event orders response (Id: 56bc5837-dbfe-47cb-8fd1-50680c815403) with status 201
+2024-03-05 22:53:09,479 - basicLogger - INFO - Received event orders request with a trace id of 4bf5093e-df35-47aa-8afc-846c7beadb46
+2024-03-05 22:53:11,542 - basicLogger - INFO - Returned event orders response (Id: 4bf5093e-df35-47aa-8afc-846c7beadb46) with status 201
+2024-03-05 22:53:13,753 - basicLogger - INFO - Received event products request with a trace id of b37ab2c3-0ee4-4ebd-a147-fcc43ee37794
+2024-03-05 22:53:15,793 - basicLogger - INFO - Returned event products response (Id: b37ab2c3-0ee4-4ebd-a147-fcc43ee37794) with status 201
+2024-03-05 22:53:18,895 - basicLogger - INFO - Received event products request with a trace id of 81c0f4ba-45ca-4ec6-bb92-881fc7408df3
+2024-03-05 22:53:20,950 - basicLogger - INFO - Returned event products response (Id: 81c0f4ba-45ca-4ec6-bb92-881fc7408df3) with status 201
+2024-03-05 22:54:05,165 - basicLogger - INFO - Received event products request with a trace id of d2d7c93f-7869-4e6f-bf78-fc0ef89bac32
+2024-03-05 22:54:07,218 - basicLogger - INFO - Returned event products response (Id: d2d7c93f-7869-4e6f-bf78-fc0ef89bac32) with status 201
+2024-03-05 22:54:15,077 - basicLogger - INFO - Received event products request with a trace id of e2f296ae-27ad-4f3d-9e45-072a73325f4d
+2024-03-05 22:54:17,115 - basicLogger - INFO - Returned event products response (Id: e2f296ae-27ad-4f3d-9e45-072a73325f4d) with status 201
+2024-03-05 22:54:25,514 - basicLogger - INFO - Received event orders request with a trace id of 3a1e670e-f003-4967-b7ec-04fab148310b
+2024-03-05 22:54:27,577 - basicLogger - INFO - Returned event orders response (Id: 3a1e670e-f003-4967-b7ec-04fab148310b) with status 201
+2024-03-05 22:54:40,518 - basicLogger - INFO - Received event orders request with a trace id of 7dfd094a-b9e9-404c-a843-7ae34640d592
+2024-03-05 22:54:42,570 - basicLogger - INFO - Returned event orders response (Id: 7dfd094a-b9e9-404c-a843-7ae34640d592) with status 201
+2024-03-05 22:59:51,769 - basicLogger - INFO - Received event orders request with a trace id of 9f6de1ae-3729-48d0-9968-cec9e2b9a58d
+2024-03-05 22:59:53,818 - basicLogger - INFO - Returned event orders response (Id: 9f6de1ae-3729-48d0-9968-cec9e2b9a58d) with status 201
+2024-03-05 22:59:55,875 - basicLogger - INFO - Received event products request with a trace id of f8990288-873a-4c76-802c-d9b095aebf07
+2024-03-05 22:59:57,942 - basicLogger - INFO - Returned event products response (Id: f8990288-873a-4c76-802c-d9b095aebf07) with status 201
+2024-03-07 17:29:14,591 - basicLogger - INFO - Received event orders request with a trace id of a8a4c172-a7ca-4738-b2bc-0f0c2e97cf0d
+2024-03-07 17:29:17,672 - basicLogger - INFO - Returned event orders response (Id: a8a4c172-a7ca-4738-b2bc-0f0c2e97cf0d) with status 201
+2024-03-07 17:29:28,754 - basicLogger - INFO - Received event products request with a trace id of 3d500040-e176-4837-8561-4d91601cae5e
+2024-03-07 17:29:31,753 - basicLogger - INFO - Returned event products response (Id: 3d500040-e176-4837-8561-4d91601cae5e) with status 201
+2024-03-07 17:37:12,835 - basicLogger - INFO - Received event products request with a trace id of ae58871e-aa17-4928-a08f-1edaab1195e2
+2024-03-07 17:37:15,913 - basicLogger - INFO - Returned event products response (Id: ae58871e-aa17-4928-a08f-1edaab1195e2) with status 201
+2024-03-07 17:41:27,572 - basicLogger - INFO - Received event orders request with a trace id of 13cae683-35f6-4113-a20c-36efd75559e0
+2024-03-07 17:41:30,691 - basicLogger - INFO - Returned event orders response (Id: 13cae683-35f6-4113-a20c-36efd75559e0) with status 201
