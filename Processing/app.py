@@ -46,10 +46,11 @@ def get_latest_datetime(current_datetime):
 def calculate_stats(product_res, order_res, current_datetime_object):
     try:
         session = DB_SESSION()
-        product_res_json = product_res.json()
-        order_res_json = order_res.json()
-
         latest_stat = session.query(Stats).order_by(Stats.created_at.desc()).first()
+        product_res_json = product_res.json()
+        logging.info(product_res_json)
+        order_res_json = order_res.json()
+        logging.info(product_res_json)
 
         number_products = latest_stat.number_products
         number_orders = latest_stat.number_orders
@@ -60,6 +61,7 @@ def calculate_stats(product_res, order_res, current_datetime_object):
 
         for product in product_res_json:
             number_products += 1
+            logging.info(product["price"])
             if product["price"] > highest_product_price:
                 highest_product_price = product["price"]
             if product["quantity"] > highest_product_quantity:
@@ -129,7 +131,8 @@ def populate_stats():
                 "end_timestamp": current_datetime,
             },
         )
-
+        logger.info(response_product)
+        logger.info(response_order)
         calculate_stats(response_product, response_order, current_datetime_object)
 
         logger.info(f"Product response status code: {response_product.status_code}")
@@ -187,4 +190,5 @@ app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
     init_scheduler()
-    app.run(port=8100)
+    logging.info("app running on port 8100")
+    app.run(host="0.0.0.0", port=8100)

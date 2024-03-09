@@ -1,0 +1,5 @@
+connexion[flask, uvicorn]==3.0.6
+swagger_ui_bundle==1.1.0
+requests==2.31.0
+pykafka==2.8.0
+PyYAML==5.3.1

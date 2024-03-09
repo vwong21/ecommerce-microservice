@@ -16,3 +16,7 @@ events:
 #   password: password
 #   database: events
 #   port: 3306
+# events:
+#   hostname: kafka-acit3855-lab6.eastus.cloudapp.azure.com
+#   port: 9092
+#   topic: events
