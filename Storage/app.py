@@ -172,7 +172,7 @@ def process_messages():
                 order_date = parse_date(order_date_str)
                 orders = Orders(
                     customer_id=payload["customer_id"],
-                    order_date_formatted=order_date.strftime("%Y-%m-%d %H:%M:%S"),
+                    order_date=order_date.strftime("%Y-%m-%d %H:%M:%S"),
                     quantity=payload["quantity"],
                     total_price=payload["total_price"],
                     date_created=datetime.now(timezone.utc).strftime(
