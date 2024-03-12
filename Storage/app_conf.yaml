@@ -1,9 +1,9 @@
 version: 1
 database:
   host: kafka-acit3855-lab6.eastus.cloudapp.azure.com
-  user: root
-  password: password
-  database: events
+  user: ""
+  password: ""
+  database: ""
   port: 3306
 events:
   hostname: kafka-acit3855-lab6.eastus.cloudapp.azure.com
@@ -12,9 +12,9 @@ events:
 # version: 1
 # database:
 #   host: localhost
-#   user: root
-#   password: password
-#   database: events
+#   user: ""
+#   password: ""
+#   database: ""
 #   port: 3306
 # events:
 #   hostname: kafka-acit3855-lab6.eastus.cloudapp.azure.com
