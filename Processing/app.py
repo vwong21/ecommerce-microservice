@@ -48,9 +48,7 @@ def calculate_stats(product_res, order_res, current_datetime_object):
         session = DB_SESSION()
         latest_stat = session.query(Stats).order_by(Stats.created_at.desc()).first()
         product_res_json = product_res.json()
-        logging.info(product_res_json)
         order_res_json = order_res.json()
-        logging.info(product_res_json)
 
         number_products = latest_stat.number_products
         number_orders = latest_stat.number_orders
@@ -61,7 +59,6 @@ def calculate_stats(product_res, order_res, current_datetime_object):
 
         for product in product_res_json:
             number_products += 1
-            logging.info(product["price"])
             if product["price"] > highest_product_price:
                 highest_product_price = product["price"]
             if product["quantity"] > highest_product_quantity:
@@ -111,7 +108,6 @@ def populate_stats():
             session.add(stats)
             session.commit()
 
-        # last_datetime = get_latest_datetime(current_datetime)
         last_datetime = stats.created_at.strftime("%Y-%m-%d %H:%M:%S")
         product_endpoint = f"{eventstore_url}/products"
         order_endpoint = f"{eventstore_url}/orders"
@@ -131,8 +127,6 @@ def populate_stats():
                 "end_timestamp": current_datetime,
             },
         )
-        logger.info(response_product)
-        logger.info(response_order)
         calculate_stats(response_product, response_order, current_datetime_object)
 
         logger.info(f"Product response status code: {response_product.status_code}")

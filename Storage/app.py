@@ -58,13 +58,13 @@ def getProductEvents(start_timestamp, end_timestamp):
         results_list = []
         for row in results:
             reading_dict = {
-                "id": row[0],
-                "product_id": row[1],
-                "name": row[2],
-                "price": row[3],
-                "quantity": row[4],
-                "date_created": row[5],
-                "trace_id": row[6],
+                "id": row.id,
+                "product_id": row.product_id,
+                "name": row.name,
+                "price": row.price,
+                "quantity": row.quantity,
+                "date_created": row.date_created,
+                "trace_id": row.trace_id,
             }
             results_list.append(reading_dict)
         session.close()
@@ -104,13 +104,13 @@ def getOrderEvents(start_timestamp, end_timestamp):
         results_list = []
         for row in results:
             reading_dict = {
-                "id": row[0],
-                "customer_id": row[1],
-                "order_date": row[2],
-                "quantity": row[3],
-                "total_price": row[4],
-                "date_created": row[5],
-                "trace_id": row[6],
+                "id": row.id,
+                "customer_id": row.customer_id,
+                "order_date": row.order_date,
+                "quantity": row.quantity,
+                "total_price": row.total_price,
+                "date_created": row.date_created,
+                "trace_id": row.trace_id,
             }
             results_list.append(reading_dict)
 
