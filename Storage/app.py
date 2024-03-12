@@ -4,32 +4,38 @@ import json
 import logging
 import logging.config
 import yaml
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from connexion import NoContent
 from datetime import datetime, timezone
 from dateutil.parser import parse as parse_date
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
 from threading import Thread
+from base import Base
+from products import Products
+from orders import Orders
 
 with open("log_conf.yaml", "r") as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 
+logger = logging.getLogger("basicLogger")
+
 with open("app_conf.yaml", "r") as f:
     app_config = yaml.safe_load(f.read())
     DATABASE_CONFIG = app_config["database"]
 
-
-def get_db_connection():
-    return mysql.connector.connect(**DATABASE_CONFIG)
-
-
-logger = logging.getLogger("basicLogger")
+DB_ENGINE = create_engine(
+    f"mysql+pymysql://{DATABASE_CONFIG['user']}:{DATABASE_CONFIG['password']}@{DATABASE_CONFIG['host']}:{DATABASE_CONFIG['port']}/{DATABASE_CONFIG['database']}"
+)
+Base.metadata.bind = DB_ENGINE
+DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 
 def getProductEvents(start_timestamp, end_timestamp):
-    db_conn = get_db_connection()
-    db_cursor = db_conn.cursor()
+    session = DB_SESSION()
     logging.info(
         f"Connecting to DB. Hostname: {DATABASE_CONFIG['host']}, Port: {DATABASE_CONFIG['port']}"
     )
@@ -40,13 +46,14 @@ def getProductEvents(start_timestamp, end_timestamp):
         )
         end_timestamp_datetime = datetime.strptime(end_timestamp, "%Y-%m-%d %H:%M:%S")
 
-        query = "SELECT * FROM products WHERE date_created >= %s AND date_created < %s"
-        db_cursor.execute(query, (start_timestamp_datetime, end_timestamp_datetime))
-
-        results = db_cursor.fetchall()
-
-        db_cursor.close()
-        db_conn.close()
+        results = (
+            session.query(Products)
+            .filter(
+                Products.date_created >= start_timestamp_datetime,
+                Products.date_created < end_timestamp_datetime,
+            )
+            .all()
+        )
 
         results_list = []
         for row in results:
@@ -60,13 +67,14 @@ def getProductEvents(start_timestamp, end_timestamp):
                 "trace_id": row[6],
             }
             results_list.append(reading_dict)
-        logger.info(results_list)
+        session.close()
+        logging.info(results_list)
         return results_list
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
         return None
     finally:
-        logger.info(
+        logging.info(
             "Query for products after %s returns %d results"
             % (start_timestamp, len(results_list))
         )
@@ -74,8 +82,7 @@ def getProductEvents(start_timestamp, end_timestamp):
 
 def getOrderEvents(start_timestamp, end_timestamp):
     try:
-        db_conn = get_db_connection()
-        db_cursor = db_conn.cursor()
+        session = DB_SESSION()
         logging.info(
             f"Connecting to DB. Hostname: {DATABASE_CONFIG['host']}, Port: {DATABASE_CONFIG['port']}"
         )
@@ -85,13 +92,14 @@ def getOrderEvents(start_timestamp, end_timestamp):
         )
         end_timestamp_datetime = datetime.strptime(end_timestamp, "%Y-%m-%d %H:%M:%S")
 
-        query = "SELECT * FROM orders WHERE date_created >= %s AND date_created < %s"
-        db_cursor.execute(query, (start_timestamp_datetime, end_timestamp_datetime))
-
-        results = db_cursor.fetchall()
-
-        db_cursor.close()
-        db_conn.close()
+        results = (
+            session.query(Orders)
+            .filter(
+                Orders.date_created >= start_timestamp_datetime,
+                Orders.date_created < end_timestamp_datetime,
+            )
+            .all()
+        )
 
         results_list = []
         for row in results:
@@ -105,12 +113,14 @@ def getOrderEvents(start_timestamp, end_timestamp):
                 "trace_id": row[6],
             }
             results_list.append(reading_dict)
-        logger.info(results_list)
+
+        session.close()
+        logging.info(results_list)
         return results_list
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
     finally:
-        logger.info(
+        logging.info(
             "Query for orders after %s returns %d results"
             % (start_timestamp, len(results_list))
         )
@@ -131,57 +141,51 @@ def process_messages():
         for msg in consumer:
             msg_str = msg.value.decode("utf-8")
             msg = json.loads(msg_str)
-            logger.info("Message: %s" % msg)
+            logging.info("Message: %s" % msg)
 
             payload = msg["payload"]
 
             if msg["type"] == "products":
-                db_conn = get_db_connection()
-                db_cursor = db_conn.cursor()
 
+                products = Products(
+                    product_id=payload["product_id"],
+                    name=payload["name"],
+                    price=payload["price"],
+                    quantity=payload["quantity"],
+                    date_created=datetime.now(timezone.utc).strftime(
+                        "%Y-%m-%d %H:%M:%S"
+                    ),
+                    trace_id=payload["trace_id"],
+                )
+                session = DB_SESSION()
                 logging.info("Connected to database")
-
-                product_id = payload["product_id"]
-                name = payload["name"]
-                price = payload["price"]
-                quantity = payload["quantity"]
-                date_created = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
-                trace_id = payload["trace_id"]
-
-                query = "INSERT INTO products (product_id, name, price, quantity, date_created, trace_id) VALUES (%s, %s, %s, %s, %s, %s)"
-                values = (product_id, name, price, quantity, date_created, trace_id)
-
-                db_cursor.execute(query, values)
-                db_conn.commit()
+                session.add(products)
+                session.commit()
+                session.close()
 
                 logger.debug(
                     f"Stored event 'create_product' request with a trace id of {payload['trace_id']}"
                 )
 
             elif msg["type"] == "orders":
-                db_conn = get_db_connection()
-                db_cursor = db_conn.cursor()
-
-                customer_id = payload["customer_id"]
                 order_date_str = payload["order_date"]
                 order_date = parse_date(order_date_str)
-                order_date_formatted = order_date.strftime("%Y-%m-%d %H:%M:%S")
-                quantity = payload["quantity"]
-                total_price = payload["total_price"]
-                date_created = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
-                trace_id = payload["trace_id"]
-
-                query = "INSERT INTO orders (customer_id, order_date, quantity, total_price, date_created, trace_id) VALUES (%s, %s, %s, %s, %s, %s)"
-                values = (
-                    customer_id,
-                    order_date_formatted,
-                    quantity,
-                    total_price,
-                    date_created,
-                    trace_id,
+                orders = Orders(
+                    customer_id=payload["customer_id"],
+                    order_date_formatted=order_date.strftime("%Y-%m-%d %H:%M:%S"),
+                    quantity=payload["quantity"],
+                    total_price=payload["total_price"],
+                    date_created=datetime.now(timezone.utc).strftime(
+                        "%Y-%m-%d %H:%M:%S"
+                    ),
+                    trace_id=payload["trace_id"],
                 )
-                db_cursor.execute(query, values)
-                db_conn.commit()
+
+                session = DB_SESSION()
+                logging.info("Connected to database")
+                session.add(orders)
+                session.commit()
+                session.close()
 
                 logger.debug(
                     f"Stored event 'create_order' request with a trace id of {payload['trace_id']}"
@@ -190,10 +194,6 @@ def process_messages():
             consumer.commit_offsets()
     except Exception as e:
         logger.error(e)
-
-    finally:
-        db_cursor.close()
-        db_conn.close()
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
