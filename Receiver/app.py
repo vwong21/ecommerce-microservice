@@ -47,6 +47,7 @@ def send_to_kafka(event_type, event_data):
         }
         msg_str = json.dumps(msg)
         producer.produce(msg_str.encode("utf-8"))
+        logging.info(msg_str)
 
     except Exception as e:
         logger.error(e)

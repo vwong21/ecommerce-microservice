@@ -153,6 +153,8 @@ def process_messages():
 
                 db_cursor.execute(query, values)
                 db_conn.commit()
+                db_cursor.close()
+                db_conn.close()
 
                 logger.debug(
                     f"Stored event 'create_product' request with a trace id of {payload['trace_id']}"
@@ -182,6 +184,8 @@ def process_messages():
                 )
                 db_cursor.execute(query, values)
                 db_conn.commit()
+                db_cursor.close()
+                db_conn.close()
 
                 logger.debug(
                     f"Stored event 'create_order' request with a trace id of {payload['trace_id']}"
@@ -190,10 +194,6 @@ def process_messages():
             consumer.commit_offsets()
     except Exception as e:
         logger.error(e)
-
-    finally:
-        db_cursor.close()
-        db_conn.close()
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
