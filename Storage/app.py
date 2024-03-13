@@ -127,73 +127,80 @@ def getOrderEvents(start_timestamp, end_timestamp):
 
 
 def process_messages():
-    try:
-        events = app_config["events"]
-        hostname = "%s:%d" % (events["hostname"], events["port"])
-        client = KafkaClient(hosts=hostname)
-        topic = client.topics[str.encode(events["topic"])]
-        consumer = topic.get_simple_consumer(
-            consumer_group=b"event_group",
-            reset_offset_on_start=False,
-            auto_offset_reset=OffsetType.LATEST,
-        )
+    max_retries = 10
+    retry_count = 0
 
-        for msg in consumer:
-            msg_str = msg.value.decode("utf-8")
-            msg = json.loads(msg_str)
-            logging.info("Message: %s" % msg)
+    while retry_count < max_retries:
+        try:
+            events = app_config["events"]
+            hostname = "%s:%d" % (events["hostname"], events["port"])
+            client = KafkaClient(hosts=hostname)
+            topic = client.topics[str.encode(events["topic"])]
+            consumer = topic.get_simple_consumer(
+                consumer_group=b"event_group",
+                reset_offset_on_start=False,
+                auto_offset_reset=OffsetType.LATEST,
+            )
 
-            payload = msg["payload"]
+            for msg in consumer:
+                msg_str = msg.value.decode("utf-8")
+                msg = json.loads(msg_str)
+                logging.info("Message: %s" % msg)
 
-            if msg["type"] == "products":
+                payload = msg["payload"]
 
-                products = Products(
-                    product_id=payload["product_id"],
-                    name=payload["name"],
-                    price=payload["price"],
-                    quantity=payload["quantity"],
-                    date_created=datetime.now(timezone.utc).strftime(
-                        "%Y-%m-%d %H:%M:%S"
-                    ),
-                    trace_id=payload["trace_id"],
-                )
-                session = DB_SESSION()
-                logging.info("Connected to database")
-                session.add(products)
-                session.commit()
-                session.close()
+                if msg["type"] == "products":
 
-                logger.debug(
-                    f"Stored event 'create_product' request with a trace id of {payload['trace_id']}"
-                )
+                    products = Products(
+                        product_id=payload["product_id"],
+                        name=payload["name"],
+                        price=payload["price"],
+                        quantity=payload["quantity"],
+                        date_created=datetime.now(timezone.utc).strftime(
+                            "%Y-%m-%d %H:%M:%S"
+                        ),
+                        trace_id=payload["trace_id"],
+                    )
+                    session = DB_SESSION()
+                    logging.info("Connected to database")
+                    session.add(products)
+                    session.commit()
+                    session.close()
 
-            elif msg["type"] == "orders":
-                order_date_str = payload["order_date"]
-                order_date = parse_date(order_date_str)
-                orders = Orders(
-                    customer_id=payload["customer_id"],
-                    order_date=order_date.strftime("%Y-%m-%d %H:%M:%S"),
-                    quantity=payload["quantity"],
-                    total_price=payload["total_price"],
-                    date_created=datetime.now(timezone.utc).strftime(
-                        "%Y-%m-%d %H:%M:%S"
-                    ),
-                    trace_id=payload["trace_id"],
-                )
+                    logger.debug(
+                        f"Stored event 'create_product' request with a trace id of {payload['trace_id']}"
+                    )
 
-                session = DB_SESSION()
-                logging.info("Connected to database")
-                session.add(orders)
-                session.commit()
-                session.close()
+                elif msg["type"] == "orders":
+                    order_date_str = payload["order_date"]
+                    order_date = parse_date(order_date_str)
+                    orders = Orders(
+                        customer_id=payload["customer_id"],
+                        order_date=order_date.strftime("%Y-%m-%d %H:%M:%S"),
+                        quantity=payload["quantity"],
+                        total_price=payload["total_price"],
+                        date_created=datetime.now(timezone.utc).strftime(
+                            "%Y-%m-%d %H:%M:%S"
+                        ),
+                        trace_id=payload["trace_id"],
+                    )
 
-                logger.debug(
-                    f"Stored event 'create_order' request with a trace id of {payload['trace_id']}"
-                )
+                    session = DB_SESSION()
+                    logging.info("Connected to database")
+                    session.add(orders)
+                    session.commit()
+                    session.close()
 
+                    logger.debug(
+                        f"Stored event 'create_order' request with a trace id of {payload['trace_id']}"
+                    )
+
+                consumer.commit_offsets()
+
+            break
             consumer.commit_offsets()
-    except Exception as e:
-        logger.error(e)
+        except Exception as e:
+            logger.error(e)
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
