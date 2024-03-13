@@ -201,6 +201,7 @@ def process_messages():
             consumer.commit_offsets()
         except Exception as e:
             logger.error(e)
+            retry_count += 1
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
