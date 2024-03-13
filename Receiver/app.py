@@ -54,7 +54,10 @@ def send_to_kafka(event_type, event_data):
 
 
 def createProduct(body):
-    send_to_kafka("products", body)
+    try:
+        send_to_kafka("products", body)
+    except Exception as e:
+        logger.error(e)
     return {"message": "Product creation request received successfully"}, 201
 
 
