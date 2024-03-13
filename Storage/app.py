@@ -197,8 +197,7 @@ def process_messages():
 
                 consumer.commit_offsets()
 
-            break
-            consumer.commit_offsets()
+            break  # Break the loop if no exceptions occur
         except Exception as e:
             logger.error(e)
             retry_count += 1
