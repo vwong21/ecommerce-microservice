@@ -141,7 +141,7 @@ def process_messages():
                 reset_offset_on_start=False,
                 auto_offset_reset=OffsetType.LATEST,
             )
-
+            logging.info("Successfully connected to Kafka")
             for msg in consumer:
                 msg_str = msg.value.decode("utf-8")
                 msg = json.loads(msg_str)
@@ -194,10 +194,9 @@ def process_messages():
                     logger.debug(
                         f"Stored event 'create_order' request with a trace id of {payload['trace_id']}"
                     )
-
                 consumer.commit_offsets()
 
-            break  # Break the loop if no exceptions occur
+            break
         except Exception as e:
             logger.error(e)
             retry_count += 1
