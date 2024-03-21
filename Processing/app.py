@@ -3,13 +3,14 @@ import yaml
 import logging
 import logging.config
 import requests
-from flask import jsonify
-from flask_cors import CORS
-from datetime import datetime, timezone
 from apscheduler.schedulers.background import BackgroundScheduler
+from base import Base
+from connexion.middleware import MiddlewarePosition
+from datetime import datetime, timezone
+from flask import jsonify
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
-from base import Base
+from starlette.middleware.cors import CORSMiddleware
 from stats import Stats
 
 
@@ -181,8 +182,15 @@ def get_stats():
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
+app.add_middleware(
+    CORSMiddleware,
+    position=MiddlewarePosition.BEFORE_EXCEPTION,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
-CORS(app.app)
 
 if __name__ == "__main__":
     init_scheduler()
