@@ -73,7 +73,7 @@ services:
       - "db"
 
   dashboard_ui:
-    image: dashboard_ui:latest
+    image: dashboard-ui:latest
     ports:
       - "3000:3000"
     depends_on:
