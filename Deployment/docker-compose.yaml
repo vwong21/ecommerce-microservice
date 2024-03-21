@@ -72,5 +72,13 @@ services:
       - "kafka"
       - "db"
 
+  dashboard_ui:
+    image: dashboard_ui:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "processing"
+      - "audit"
+
 volumes:
   my-db:
