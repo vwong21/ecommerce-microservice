@@ -4,6 +4,7 @@ import logging
 import logging.config
 import requests
 from flask import jsonify
+from flask_cors import CORS
 from datetime import datetime, timezone
 from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy import create_engine, desc
@@ -181,6 +182,7 @@ def get_stats():
 
 app = connexion.FlaskApp(__name__, specification_dir="")
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
+CORS(app.app)
 
 if __name__ == "__main__":
     init_scheduler()

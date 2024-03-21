@@ -3,6 +3,7 @@ import json
 import logging
 import logging.config
 import yaml
+from flask_cors import CORS
 from pykafka import KafkaClient
 
 with open("app_conf.yaml", "r") as f:
@@ -52,6 +53,7 @@ def getOrderInformation(index):
 
 app = connexion.FlaskApp(__name__, specification_dir="")
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
+CORS(app.app)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8110)
