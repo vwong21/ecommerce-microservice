@@ -72,7 +72,7 @@ services:
       - "kafka"
       - "db"
 
-  dashboard_ui:
+  dashboard-ui:
     image: dashboard-ui:latest
     ports:
       - "3000:3000"
