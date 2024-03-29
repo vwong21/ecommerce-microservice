@@ -3,6 +3,7 @@ import mysql.connector
 import json
 import logging
 import logging.config
+import time
 import yaml
 
 from sqlalchemy import create_engine
@@ -127,11 +128,12 @@ def getOrderEvents(start_timestamp, end_timestamp):
 
 
 def process_messages():
-    max_retries = 10
+    max_retries = app_config["events"]["max_retries"]
     retry_count = 0
 
     while retry_count < max_retries:
         try:
+            logging.info(f"Connecting to Kafka. Current attempt: {retry_count}")
             events = app_config["events"]
             hostname = "%s:%d" % (events["hostname"], events["port"])
             client = KafkaClient(hosts=hostname)
@@ -200,6 +202,8 @@ def process_messages():
         except Exception as e:
             logger.error(e)
             retry_count += 1
+            sleep_time = app_config["events"]["retry_sleep_value"]
+            time.sleep(sleep_time)
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
