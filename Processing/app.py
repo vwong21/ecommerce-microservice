@@ -112,6 +112,7 @@ def populate_stats():
     try:
         stats = session.query(Stats).order_by(desc(Stats.created_at)).first()
         if stats is None:
+            logging.info("STATS DOESN'T EXIST")
             stats = Stats(
                 number_products=0,
                 number_orders=0,
@@ -123,6 +124,8 @@ def populate_stats():
             )
             session.add(stats)
             session.commit()
+        else:
+            logging.info("STATS EXISTS")
 
         last_datetime = stats.created_at.strftime("%Y-%m-%d %H:%M:%S")
         product_endpoint = f"{eventstore_url}/products"
