@@ -110,7 +110,9 @@ def populate_stats():
     current_datetime = current_datetime_object.strftime("%Y-%m-%d %H:%M:%S")
     session = DB_SESSION()
     try:
+        logging.info("test1")
         stats = session.query(Stats).order_by(desc(Stats.created_at)).first()
+        logging.info("test2")
         if stats is None:
             logging.info("STATS DOESN'T EXIST")
             stats = Stats(
