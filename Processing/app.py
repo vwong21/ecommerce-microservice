@@ -43,23 +43,22 @@ DB_ENGINE = create_engine("sqlite:///%s" % app_config["datastore"]["filename"])
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
-if not os.path.exists(app_config["datastore"]["filename"]):
-    current_datetime_object = datetime.now(timezone.utc)
-    session = DB_SESSION()
-    stats = session.query(Stats).order_by(desc(Stats.created_at)).first()
-    if stats is None:
-        stats = Stats(
-            number_products=0,
-            number_orders=0,
-            highest_product_price=0.0,
-            highest_order_price=0.0,
-            highest_product_quantity=0,
-            highest_order_quantity=0,
-            created_at=current_datetime_object,
-        )
-        session.add(stats)
-        session.commit()
-    session.close()
+session = DB_SESSION()
+test_stats = session.query(Stats).order_by(desc(Stats.created_at)).first()
+current_datetime_object = datetime.now(timezone.utc)
+if test_stats is None:
+    test_stats = Stats(
+        number_products=0,
+        number_orders=0,
+        highest_product_price=0.0,
+        highest_order_price=0.0,
+        highest_product_quantity=0,
+        highest_order_quantity=0,
+        created_at=current_datetime_object,
+    )
+    session.add(test_stats)
+    session.commit()
+session.close()
 
 
 def get_latest_datetime(current_datetime):
@@ -126,7 +125,9 @@ def populate_stats():
     logger.info("Start Periodic Processing")
     current_datetime_object = datetime.now(timezone.utc)
     current_datetime = current_datetime_object.strftime("%Y-%m-%d %H:%M:%S")
+    session = DB_SESSION()
     try:
+        stats = session.query(Stats).order_by(desc(Stats.created_at)).first()
         last_datetime = stats.created_at.strftime("%Y-%m-%d %H:%M:%S")
         product_endpoint = f"{eventstore_url}/products"
         order_endpoint = f"{eventstore_url}/orders"
@@ -157,6 +158,8 @@ def populate_stats():
         logger.info("End Periodic Processing")
     except Exception as e:
         logger.error(e)
+    finally:
+        session.close()
 
 
 def init_scheduler():
