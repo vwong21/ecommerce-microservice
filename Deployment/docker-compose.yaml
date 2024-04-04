@@ -61,6 +61,10 @@ services:
     image: storage:latest
     ports:
       - "8090:8090"
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/storage:/config
     depends_on:
       - "kafka"
       - "db"
@@ -69,6 +73,10 @@ services:
     image: processing:latest
     ports:
       - "8100:8100"
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/processing:/config
     network_mode: "host"
     depends_on:
       - "storage"
@@ -77,6 +85,10 @@ services:
     image: audit:latest
     ports:
       - "8110:8110"
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/audit_log:/config
     depends_on:
       - "kafka"
       - "db"

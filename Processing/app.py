@@ -2,7 +2,9 @@ import connexion
 import yaml
 import logging
 import logging.config
+import os
 import requests
+
 from apscheduler.schedulers.background import BackgroundScheduler
 from base import Base
 from connexion.middleware import MiddlewarePosition
@@ -14,20 +16,32 @@ from starlette.middleware.cors import CORSMiddleware
 from stats import Stats
 
 
-with open("app_conf.yaml", "r") as f:
+if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
+    print("In Test Environment")
+    app_conf_file = "/config/app_conf.yaml"
+    log_conf_file = "/config/log_conf.yaml"
+else:
+    print("In Dev Environment")
+    app_conf_file = "app_conf.yaml"
+    log_conf_file = "log_conf.yaml"
+
+with open(app_conf_file, "r") as f:
     app_config = yaml.safe_load(f.read())
+
+eventstore_url = app_config["eventstore"]["url"]
+
+# External Logging Configuration
+with open(log_conf_file, "r") as f:
+    log_config = yaml.safe_load(f.read())
+
+logging.config.dictConfig(log_config)
+logger = logging.getLogger("basicLogger")
+logger.info("App Conf File: %s" % app_conf_file)
+logger.info("Log Conf File: %s" % log_conf_file)
 
 DB_ENGINE = create_engine("sqlite:///%s" % app_config["datastore"]["filename"])
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
-
-eventstore_url = app_config["eventstore"]["url"]
-
-with open("log_conf.yaml", "r") as f:
-    log_config = yaml.safe_load(f.read())
-    logging.config.dictConfig(log_config)
-
-logger = logging.getLogger("basicLogger")
 
 
 def get_latest_datetime(current_datetime):
