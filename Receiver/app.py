@@ -1,14 +1,16 @@
 import connexion
-from connexion import NoContent
 import json
-from datetime import datetime
-from pykafka import KafkaClient
-import requests
-import yaml
 import logging
 import logging.config
+import os
+import requests
 import time
 import uuid
+import yaml
+
+from connexion import NoContent
+from datetime import datetime
+from pykafka import KafkaClient
 
 app = connexion.FlaskApp(__name__, specification_dir="")
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
@@ -17,14 +19,26 @@ logging.info("Connected on port 8080")
 MAX_EVENTS = 5
 EVENT_FILE = "events.json"
 
-with open("log_conf.yaml", "r") as f:
-    log_config = yaml.safe_load(f.read())
-    logging.config.dictConfig(log_config)
+if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
+    print("In Test Environment")
+    app_conf_file = "/config/app_conf.yaml"
+    log_conf_file = "/config/log_conf.yaml"
+else:
+    print("In Dev Environment")
+    app_conf_file = "app_conf.yaml"
+    log_conf_file = "log_conf.yaml"
 
-logger = logging.getLogger("basicLogger")
-
-with open("app_conf.yaml", "r") as f:
+with open(app_conf_file, "r") as f:
     app_config = yaml.safe_load(f.read())
+
+# External Logging Configuration
+with open(log_conf_file, "r") as f:
+    log_config = yaml.safe_load(f.read())
+
+logging.config.dictConfig(log_config)
+logger = logging.getLogger("basicLogger")
+logger.info("App Conf File: %s" % app_conf_file)
+logger.info("Log Conf File: %s" % log_conf_file)
 
 retry_count = 0
 max_retries = app_config["events"]["max_retries"]
