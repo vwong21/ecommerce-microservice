@@ -7,12 +7,11 @@ import requests
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from base import Base
-from connexion.middleware import MiddlewarePosition
 from datetime import datetime, timezone
 from flask import jsonify
+from flask_cors import CORS
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
-from starlette.middleware.cors import CORSMiddleware
 from stats import Stats
 
 
@@ -201,15 +200,11 @@ def get_stats():
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
-app.add_middleware(
-    CORSMiddleware,
-    position=MiddlewarePosition.BEFORE_EXCEPTION,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
+if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
+    CORS(app.app)
+    app.app.config["CORS_HEADERS"] = "Content-Type"
+
+app.add_api("openapi.yaml", base_path="/processing", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
     init_scheduler()

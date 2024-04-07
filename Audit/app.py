@@ -5,9 +5,8 @@ import logging.config
 import os
 import yaml
 
-from connexion.middleware import MiddlewarePosition
+from flask_cors import CORS
 from pykafka import KafkaClient
-from starlette.middleware.cors import CORSMiddleware
 
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
     print("In Test Environment")
@@ -67,15 +66,12 @@ def getOrderInformation(index):
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
-app.add_middleware(
-    CORSMiddleware,
-    position=MiddlewarePosition.BEFORE_EXCEPTION,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
+
+if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
+    CORS(app.app)
+    app.app.config["CORS_HEADERS"] = "Content-Type"
+
+app.add_api("openapi.yaml", base_path="/audit_log", strict_validation=True, validate_responses=True)
 
 
 if __name__ == "__main__":
