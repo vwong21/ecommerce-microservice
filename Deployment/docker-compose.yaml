@@ -49,7 +49,7 @@ services:
   receiver:
     image: receiver:latest
     ports:
-      - "8080:8080"
+      - "8080"
     networks:
       - "api.network"
     environment:
@@ -63,7 +63,7 @@ services:
   storage:
     image: storage:latest
     ports:
-      - "8090:8090"
+      - "8090"
     networks:
       - "api.network"
     environment:
@@ -78,7 +78,7 @@ services:
   processing:
     image: processing:latest
     ports:
-      - "8100:8100"
+      - "8100"
     networks:
       - "api.network"
     environment:
@@ -93,7 +93,7 @@ services:
   audit:
     image: audit:latest
     ports:
-      - "8110:8110"
+      - "8110"
     networks:
       - "api.network"
     environment:
@@ -108,7 +108,7 @@ services:
   dashboard-ui:
     image: dashboard-ui:latest
     ports:
-      - "3000:3000"
+      - "3000"
     networks:
       - "api.network"
     depends_on:
