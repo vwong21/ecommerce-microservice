@@ -71,7 +71,7 @@ if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
     CORS(app.app)
     app.app.config["CORS_HEADERS"] = "Content-Type"
 
-app.add_api("openapi.yaml", base_path="/audit_log", strict_validation=True, validate_responses=True)
+app.add_api("openapi.yaml", base_path="/audit", strict_validation=True, validate_responses=True)
 
 
 if __name__ == "__main__":
