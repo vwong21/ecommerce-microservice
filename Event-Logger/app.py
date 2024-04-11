@@ -1,4 +1,5 @@
 import connexion
+import json
 import logging
 import logging.config
 import os
@@ -55,6 +56,10 @@ def process_events():
                 auto_offset_reset=OffsetType.LATEST,
             )
             logging.info("Successfully connected to Kafka")
+            for msg in consumer:
+                msg_str = msg.value.decode("utf-8")
+                msg = json.loads(msg_str)
+                logging.info("Message: %s" % msg)
         except Exception as e:
             logger.error(e)
             retry_count += 1
