@@ -55,10 +55,7 @@ while event_log_retry_count < event_log_max_retries:
         client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
         topic = client.topics[str.encode(kafka_topic)]
         event_log_producer = topic.get_sync_producer()
-        payload = {
-            "code": 0002,
-            "message": "Connected to Kafka event_log topic"
-        }
+        payload = {"code": "0002", "message": "Connected to Kafka event_log topic"}
         msg = {
             "payload": payload,
         }

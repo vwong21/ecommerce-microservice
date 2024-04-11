@@ -54,7 +54,10 @@ while event_log_retry_count < event_log_max_retries:
         client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
         topic = client.topics[str.encode(kafka_topic)]
         event_log_producer = topic.get_sync_producer()
-        payload = f"0003 - Connected to event_log topic"
+        payload = {
+            "code": "0003",
+            "message": "Successfully connected to event_logger Kafka topic",
+        }
         msg = {
             "payload": payload,
         }
@@ -193,8 +196,8 @@ def populate_stats():
         if event_count_current % event_count == 0:
             event_log_producer = topic.get_sync_producer()
             payload = {
-                "code": 0004,
-                "message": f"Logging every {event_count} processes"
+                "code": "0004",
+                "message": f"Logging every {event_count} processes",
             }
             msg = {
                 "payload": payload,
