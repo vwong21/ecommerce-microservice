@@ -214,7 +214,6 @@ def init_scheduler():
     sched.add_job(
         populate_stats,
         "interval",
-        args=[event_count_current],
         seconds=app_config["scheduler"]["period_sec"],
     )
     sched.start()
