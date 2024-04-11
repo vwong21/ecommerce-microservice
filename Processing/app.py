@@ -192,7 +192,10 @@ def populate_stats():
 
         if event_count_current % event_count == 0:
             event_log_producer = topic.get_sync_producer()
-            payload = f"0004 - Sent event log to Kafka"
+            payload = {
+                "code": 0004,
+                "message": f"Logging every {event_count} processes"
+            }
             msg = {
                 "payload": payload,
             }

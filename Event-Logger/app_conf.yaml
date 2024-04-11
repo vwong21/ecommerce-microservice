@@ -1,0 +1,7 @@
+version: 1
+event_log:
+  hostname: kafka-acit3855-lab6.eastus.cloudapp.azure.com
+  port: 9092
+  topic: event_log
+  max_retries: 10
+  retry_sleep_value: 5

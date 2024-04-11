@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: e-commerce api
+  description: e-commerce api for managing products and orders
+  contact:
+    email: vincentwong5609@gmail.com
+  version: 1.0.0
+servers:
+  - url: /
+tags:
+  - name: event_stats
+    description: logs events from other services
+paths:
+  /event_stats:
+    get:
+      tags:
+        - event_stats
+      summary: Gets event logs
+      description: Gets all events from other services
+      operationId: app.event_stats
+      responses:
+        "200":
+          description: Successfully received event logs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  "0001":
+                    type: integer
+                  "0002":
+                    type: integer
+                  "0003":
+                    type: integer
+                  "0004":
+                    type: integer
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    Event:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
