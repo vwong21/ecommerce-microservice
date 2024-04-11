@@ -13,7 +13,12 @@ from datetime import datetime
 from pykafka import KafkaClient
 
 app = connexion.FlaskApp(__name__, specification_dir="")
-app.add_api("openapi.yaml", base_path="/receiver", strict_validation=True, validate_responses=True)
+app.add_api(
+    "openapi.yaml",
+    base_path="/receiver",
+    strict_validation=True,
+    validate_responses=True,
+)
 logging.info("Connected on port 8080")
 
 MAX_EVENTS = 5
@@ -40,10 +45,10 @@ logger = logging.getLogger("basicLogger")
 logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
 
-retry_count = 0
-max_retries = app_config["events"]["max_retries"]
-producer = None
-while retry_count < max_retries:
+events_retry_count = 0
+events_max_retries = app_config["events"]["max_retries"]
+events_producer = None
+while events_retry_count < events_max_retries:
     try:
         events = app_config["events"]
         kafka_server = events["hostname"]
@@ -52,18 +57,41 @@ while retry_count < max_retries:
 
         client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
         topic = client.topics[str.encode(kafka_topic)]
-        producer = topic.get_sync_producer()
-        logging.info(f"Successfully Connected to Kafka on attempt {retry_count}")
+        events_producer = topic.get_sync_producer()
+        logging.info(f"Successfully Connected to Kafka on attempt {events_retry_count}")
 
         break
     except Exception as e:
-        logging.info(f"Connection to Kafka failed on attempt {retry_count}")
-        retry_count += 1
+        logging.info(f"Connection to Kafka failed on attempt {events_retry_count}")
+        events_retry_count += 1
         sleep_time = app_config["events"]["retry_sleep_value"]
         time.sleep(sleep_time)
 
+event_log_retry_count = 0
+event_log_max_retries = app_config["event_log"]["max_retries"]
+while event_log_retry_count < event_log_max_retries:
+    try:
+        event_log = app_config["event_log"]
+        kafka_server = event_log["hostname"]
+        kafka_port = event_log["port"]
+        kafka_topic = event_log["topic"]
 
-def send_to_kafka(event_type, event_data, producer):
+        client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
+        topic = client.topics[str.encode(kafka_topic)]
+        event_log_producer = topic.get_sync_producer()
+        payload = f"0001 - Connected to event_log topic"
+        msg = {
+            "payload": payload,
+        }
+
+        msg_str = json.dumps(msg)
+        event_log_producer.produce(msg_str.encode("utf-8"))
+        logging.info(msg)
+    except Exception as e:
+        logger.error(e)
+
+
+def send_to_kafka(event_type, event_data, events_producer):
     try:
         trace_id = str(uuid.uuid4())
         event_data["trace_id"] = trace_id
@@ -74,7 +102,7 @@ def send_to_kafka(event_type, event_data, producer):
             "payload": event_data,
         }
         msg_str = json.dumps(msg)
-        producer.produce(msg_str.encode("utf-8"))
+        events_producer.produce(msg_str.encode("utf-8"))
         logging.info(msg)
 
     except Exception as e:
@@ -82,12 +110,12 @@ def send_to_kafka(event_type, event_data, producer):
 
 
 def createProduct(body):
-    send_to_kafka("products", body, producer)
+    send_to_kafka("products", body, events_producer)
     return {"message": "Product creation request received successfully"}, 201
 
 
 def processOrder(body):
-    send_to_kafka("orders", body, producer)
+    send_to_kafka("orders", body, events_producer)
     return {"message": "Order creation request received successfully"}, 201
 
 
