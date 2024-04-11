@@ -152,7 +152,8 @@ def calculate_stats(product_res, order_res, current_datetime_object):
         session.close()
 
 
-def populate_stats(event_count_current):
+def populate_stats():
+    global event_count_current
     event_count_current += 1
     logger.info("Start Periodic Processing")
     current_datetime_object = datetime.now(timezone.utc)
@@ -206,17 +207,12 @@ def populate_stats(event_count_current):
         logger.error(e)
     finally:
         session.close()
-    return event_count_current
 
 
 def init_scheduler():
     sched = BackgroundScheduler(daemon=True)
-
-    def scheduled_task(event_count_current):
-        event_count_current = populate_stats(event_count_current)
-
     sched.add_job(
-        scheduled_task,
+        populate_stats,
         "interval",
         args=[event_count_current],
         seconds=app_config["scheduler"]["period_sec"],
