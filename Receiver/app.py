@@ -69,6 +69,7 @@ while events_retry_count < events_max_retries:
 
 event_log_retry_count = 0
 event_log_max_retries = app_config["event_log"]["max_retries"]
+event_log_producer = None
 while event_log_retry_count < event_log_max_retries:
     try:
         event_log = app_config["event_log"]
@@ -86,7 +87,7 @@ while event_log_retry_count < event_log_max_retries:
 
         msg_str = json.dumps(msg)
         event_log_producer.produce(msg_str.encode("utf-8"))
-        logging.info(msg)
+        logging.info(payload)
         break
     except Exception as e:
         logger.error(e)

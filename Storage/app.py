@@ -42,6 +42,34 @@ logger = logging.getLogger("basicLogger")
 logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
 
+event_log_retry_count = 0
+event_log_max_retries = app_config["event_log"]["max_retries"]
+event_log_producer = None
+while event_log_retry_count < event_log_max_retries:
+    try:
+        event_log = app_config["event_log"]
+        kafka_server = event_log["hostname"]
+        kafka_port = event_log["port"]
+        kafka_topic = event_log["topic"]
+
+        client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
+        topic = client.topics[str.encode(kafka_topic)]
+        event_log_producer = topic.get_sync_producer()
+        payload = f"0002 - Connected to event_log topic"
+        msg = {
+            "payload": payload,
+        }
+
+        msg_str = json.dumps(msg)
+        event_log_producer.produce(msg_str.encode("utf-8"))
+        logging.info(payload)
+        break
+    except Exception as e:
+        logger.error(e)
+        event_log_retry_count += 1
+        sleep_time = app_config["event_log"]["retry_sleep_value"]
+        time.sleep(sleep_time)
+
 DB_ENGINE = create_engine(
     f"mysql+pymysql://{DATABASE_CONFIG['user']}:{DATABASE_CONFIG['password']}@{DATABASE_CONFIG['host']}:{DATABASE_CONFIG['port']}/{DATABASE_CONFIG['database']}"
 )
@@ -221,7 +249,12 @@ def process_messages():
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
-app.add_api("openapi.yaml", base_path="/storage", strict_validation=True, validate_responses=True)
+app.add_api(
+    "openapi.yaml",
+    base_path="/storage",
+    strict_validation=True,
+    validate_responses=True,
+)
 
 if __name__ == "__main__":
     t1 = Thread(target=process_messages)
