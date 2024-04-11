@@ -87,8 +87,12 @@ while event_log_retry_count < event_log_max_retries:
         msg_str = json.dumps(msg)
         event_log_producer.produce(msg_str.encode("utf-8"))
         logging.info(msg)
+        break
     except Exception as e:
         logger.error(e)
+        event_log_retry_count += 1
+        sleep_time = app_config["event_log"]["retry_sleep_value"]
+        time.sleep(sleep_time)
 
 
 def send_to_kafka(event_type, event_data, events_producer):
