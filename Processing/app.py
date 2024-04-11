@@ -152,7 +152,8 @@ def calculate_stats(product_res, order_res, current_datetime_object):
         session.close()
 
 
-def populate_stats():
+def populate_stats(event_count_current):
+    event_count_current += 1
     logger.info("Start Periodic Processing")
     current_datetime_object = datetime.now(timezone.utc)
     current_datetime = current_datetime_object.strftime("%Y-%m-%d %H:%M:%S")
@@ -187,10 +188,22 @@ def populate_stats():
         logger.debug(f"Updated statistics: {updated_stats.to_dict()}")
 
         logger.info("End Periodic Processing")
+
+        if event_count_current % event_count == 0:
+            event_log_producer = topic.get_sync_producer()
+            payload = f"0004 - Sent event log to Kafka"
+            msg = {
+                "payload": payload,
+            }
+            msg_str = json.dumps(msg)
+            event_log_producer.produce(msg_str.encode("utf-8"))
+            logging.info(payload)
+
     except Exception as e:
         logger.error(e)
     finally:
         session.close()
+    return event_count_current
 
 
 def init_scheduler():
@@ -229,6 +242,9 @@ def get_stats():
     finally:
         session.close()
 
+
+event_count_current = 0
+event_count = app_config["event_log"]["event_count"]
 
 app = connexion.FlaskApp(__name__, specification_dir="")
 if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
