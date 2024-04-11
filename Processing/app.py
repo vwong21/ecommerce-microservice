@@ -198,6 +198,9 @@ def populate_stats(event_count_current):
             msg_str = json.dumps(msg)
             event_log_producer.produce(msg_str.encode("utf-8"))
             logging.info(payload)
+        else:
+            logging.info(f"Current count is {event_count_current}")
+            logging.info(f"Result: {event_count_current%event_count}")
 
     except Exception as e:
         logger.error(e)
