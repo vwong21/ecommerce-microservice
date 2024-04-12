@@ -45,27 +45,31 @@ logger = logging.getLogger("basicLogger")
 logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
 
-events_retry_count = 0
-events_max_retries = app_config["events"]["max_retries"]
-events_producer = None
-while events_retry_count < events_max_retries:
-    try:
-        events = app_config["events"]
-        kafka_server = events["hostname"]
-        kafka_port = events["port"]
-        kafka_topic = events["topic"]
 
-        client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
-        topic = client.topics[str.encode(kafka_topic)]
-        events_producer = topic.get_sync_producer()
-        logging.info(f"Successfully Connected to Kafka on attempt {events_retry_count}")
+def init_events():
+    global events_producer
+    events_retry_count = 0
+    events_max_retries = app_config["events"]["max_retries"]
+    while events_retry_count < events_max_retries:
+        try:
+            events = app_config["events"]
+            kafka_server = events["hostname"]
+            kafka_port = events["port"]
+            kafka_topic = events["topic"]
 
-        break
-    except Exception as e:
-        logging.info(f"Connection to Kafka failed on attempt {events_retry_count}")
-        events_retry_count += 1
-        sleep_time = app_config["events"]["retry_sleep_value"]
-        time.sleep(sleep_time)
+            client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
+            topic = client.topics[str.encode(kafka_topic)]
+            events_producer = topic.get_sync_producer()
+            logging.info(
+                f"Successfully Connected to Kafka on attempt {events_retry_count}"
+            )
+
+            break
+        except Exception as e:
+            logging.info(f"Connection to Kafka failed on attempt {events_retry_count}")
+            events_retry_count += 1
+            sleep_time = app_config["events"]["retry_sleep_value"]
+            time.sleep(sleep_time)
 
 
 def init_event_log():
@@ -131,5 +135,6 @@ def processOrder(body):
 
 
 if __name__ == "__main__":
+    init_events()
     init_event_log()
     app.run(host="0.0.0.0", port=8080)
