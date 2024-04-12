@@ -41,36 +41,40 @@ logger = logging.getLogger("basicLogger")
 logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
 
-event_log_retry_count = 0
-event_log_max_retries = app_config["event_log"]["max_retries"]
-event_log_producer = None
-while event_log_retry_count < event_log_max_retries:
-    try:
-        event_log = app_config["event_log"]
-        kafka_server = event_log["hostname"]
-        kafka_port = event_log["port"]
-        kafka_topic = event_log["topic"]
 
-        client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
-        topic = client.topics[str.encode(kafka_topic)]
-        event_log_producer = topic.get_sync_producer()
-        payload = {
-            "code": "0003",
-            "message": "Successfully connected to event_logger Kafka topic",
-        }
-        msg = {
-            "payload": payload,
-        }
+def init_event_log():
+    global event_log_producer
+    event_log_retry_count = 0
+    event_log_max_retries = app_config["event_log"]["max_retries"]
+    while event_log_retry_count < event_log_max_retries:
 
-        msg_str = json.dumps(msg)
-        event_log_producer.produce(msg_str.encode("utf-8"))
-        logging.info(payload)
-        break
-    except Exception as e:
-        logger.error(e)
-        event_log_retry_count += 1
-        sleep_time = app_config["event_log"]["retry_sleep_value"]
-        time.sleep(sleep_time)
+        try:
+            event_log = app_config["event_log"]
+            kafka_server = event_log["hostname"]
+            kafka_port = event_log["port"]
+            kafka_topic = event_log["topic"]
+
+            client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
+            topic = client.topics[str.encode(kafka_topic)]
+            event_log_producer = topic.get_sync_producer()
+            payload = {
+                "code": "0003",
+                "message": "Successfully connected to event_logger Kafka topic",
+            }
+            msg = {
+                "payload": payload,
+            }
+
+            msg_str = json.dumps(msg)
+            event_log_producer.produce(msg_str.encode("utf-8"))
+            logging.info(payload)
+            break
+        except Exception as e:
+            logger.error(e)
+            event_log_retry_count += 1
+            sleep_time = app_config["event_log"]["retry_sleep_value"]
+            time.sleep(sleep_time)
+
 
 DB_ENGINE = create_engine("sqlite:///%s" % app_config["datastore"]["filename"])
 Base.metadata.bind = DB_ENGINE
@@ -156,6 +160,7 @@ def calculate_stats(product_res, order_res, current_datetime_object):
 
 
 def populate_stats():
+    global event_log_producer
     global event_count_current
     event_count_current += 1
     logger.info("Start Periodic Processing")
@@ -194,7 +199,6 @@ def populate_stats():
         logger.info("End Periodic Processing")
 
         if event_count_current % event_count == 0:
-            event_log_producer = topic.get_sync_producer()
             payload = {
                 "code": "0004",
                 "message": f"Logging every {event_count} processes",
@@ -271,5 +275,6 @@ app.add_api(
 
 if __name__ == "__main__":
     init_scheduler()
+    init_event_log()
     logging.info("app running on port 8100")
     app.run(host="0.0.0.0", port=8100)
