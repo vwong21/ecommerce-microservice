@@ -63,7 +63,7 @@ def process_events():
         except Exception as e:
             logger.error(e)
             retry_count += 1
-            sleep_time = app_config["events"]["retry_sleep_value"]
+            sleep_time = app_config["event_log"]["retry_sleep_value"]
             time.sleep(sleep_time)
 
 
