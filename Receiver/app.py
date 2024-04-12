@@ -125,6 +125,7 @@ def send_to_kafka(event_type, event_data, events_producer):
 
 
 def createProduct(body):
+    logging.info("received order")
     send_to_kafka("products", body, events_producer)
     return {"message": "Product creation request received successfully"}, 201
 
