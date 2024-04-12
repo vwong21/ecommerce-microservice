@@ -45,6 +45,8 @@ logger = logging.getLogger("basicLogger")
 logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
 
+events_producer = None
+
 
 def init_events():
     global events_producer
@@ -126,7 +128,7 @@ def send_to_kafka(event_type, event_data, events_producer):
 
 
 def createProduct(body):
-    logging.info("received order")
+    logging.info(events_producer)
     send_to_kafka("products", body, events_producer)
     return {"message": "Product creation request received successfully"}, 201
 
