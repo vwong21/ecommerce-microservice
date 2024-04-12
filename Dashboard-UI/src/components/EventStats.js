@@ -15,7 +15,7 @@ export default function EventStats() {
             })
     }
     useEffect(() => {
-        const interval = setInterval(() => getStats, 2000)
+        const interval = setInterval(() => getStats(), 2000)
         return() => clearInterval(interval)
     }, [getStats])
     if (error){
