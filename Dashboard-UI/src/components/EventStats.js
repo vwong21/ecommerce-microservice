@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import '../App.css'
 
 export default function EventStats() {
     const [isLoaded, setIsLoaded] = useState(false)
@@ -24,7 +25,7 @@ export default function EventStats() {
         return(<div>Loading...</div>)
     } else if (isLoaded === true){
         return(
-            <div>
+            <div className={"events_stats"}>
                 <h1>Latest Event Stats</h1>
                 <table className="{eventsTable}">
                     <tbody>
