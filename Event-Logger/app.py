@@ -59,7 +59,8 @@ def process_events():
             for msg in consumer:
                 msg_str = msg.value.decode("utf-8")
                 msg = json.loads(msg_str)
-                logging.info("Message: %s" % msg)
+                logger.info("Message: %s" % msg)
+            consumer.commit_offsets()
         except Exception as e:
             logger.error(e)
             retry_count += 1
