@@ -60,7 +60,7 @@ def process_events():
                 msg_str = msg.value.decode("utf-8")
                 msg = json.loads(msg_str)
                 logger.info("Message: %s" % msg)
-            consumer.commit_offsets()
+                consumer.commit_offsets()
         except Exception as e:
             logger.error(e)
             retry_count += 1
