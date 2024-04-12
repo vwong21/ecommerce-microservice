@@ -72,6 +72,7 @@ event_log_max_retries = app_config["event_log"]["max_retries"]
 event_log_producer = None
 while event_log_retry_count < event_log_max_retries:
     try:
+        logging.info("Connecting to Kafka topic event_log")
         event_log = app_config["event_log"]
         kafka_server = event_log["hostname"]
         kafka_port = event_log["port"]
