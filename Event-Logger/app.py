@@ -18,7 +18,7 @@ from threading import Thread
 app = connexion.FlaskApp(__name__, specification_dir="")
 app.add_api(
     "openapi.yaml",
-    base_path="/event_stats",
+    base_path="/event-logger",
     strict_validation=True,
     validate_responses=True,
 )
@@ -92,7 +92,7 @@ def process_events():
             time.sleep(sleep_time)
 
 
-def event_stats():
+def stats():
     logging.info("Request for event stats has started")
     try:
         session = DB_SESSION()

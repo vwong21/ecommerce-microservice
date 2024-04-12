@@ -8,16 +8,16 @@ info:
 servers:
   - url: /
 tags:
-  - name: event_stats
+  - name: stats
     description: logs events from other services
 paths:
-  /event_stats:
+  /stats:
     get:
       tags:
-        - event_stats
+        - stats
       summary: Gets event logs
       description: Gets all events from other services
-      operationId: app.event_stats
+      operationId: app.stats
       responses:
         "200":
           description: Successfully received event logs
