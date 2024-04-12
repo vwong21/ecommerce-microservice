@@ -11,6 +11,7 @@ from events import Events
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
 from sqlalchemy import create_engine
+from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker
 from threading import Thread
 
@@ -92,7 +93,22 @@ def process_events():
 
 
 def event_stats():
-    pass
+    logging.info("Request for event stats has started")
+    try:
+        session = DB_SESSION()
+        event_counts = (
+            session.query(Events.code, func.count(Events.id))
+            .group_by(Events.code)
+            .all()
+        )
+        session.close()
+        stats = {}
+        for code, count in event_counts:
+            stats[code] = count
+        return stats, 200
+    except Exception as e:
+        logger.error("Error retrieving event stats: %s" % e)
+        return {"error": "Failed to retrieve event stats"}, 500
 
 
 if __name__ == "__main__":
