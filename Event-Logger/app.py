@@ -72,17 +72,16 @@ def process_events():
 
                 payload = msg["payload"]
 
-                events = Events(
-                    message=payload["message"],
-                    code=payload["code"]
-                )
+                events = Events(message=payload["message"], code=payload["code"])
 
                 session = DB_SESSION()
                 logging.info("Connected to database. Logging event to database.")
                 session.add(events)
                 session.commit()
                 session.close()
-                logger.debut(f"Stored event type {payload["code"]} with message {payload["message"]}")
+                logger.debut(
+                    f"Stored event type {payload['code']} with message {payload['message']}"
+                )
                 consumer.commit_offsets()
         except Exception as e:
             logger.error(e)
