@@ -126,6 +126,7 @@ services:
     volumes:
       - /home/azureuser/config/event_logger:/config
       - /home/azureuser/logs:/logs
+      - event-log-db:/data
     depends_on:
       - "receiver"
       - "storage"
@@ -148,6 +149,7 @@ services:
 volumes:
   my-db:
   processing-db:
+  event-log-db:
 
 networks:
   api.network:

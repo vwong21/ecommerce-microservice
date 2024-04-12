@@ -79,7 +79,7 @@ def process_events():
                 session.add(events)
                 session.commit()
                 session.close()
-                logger.debut(
+                logger.debug(
                     f"Stored event type {payload['code']} with message {payload['message']}"
                 )
                 consumer.commit_offsets()

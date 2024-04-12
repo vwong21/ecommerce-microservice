@@ -8,7 +8,7 @@ c.execute(
     """
         CREATE TABLE events
             (id INTEGER PRIMARY KEY ASC,
-            message STRING NOT NULL,
+            message TEXT NOT NULL,
             code INTEGER NOT NULL,
             event_date TEXT NOT NULL
             )
