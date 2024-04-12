@@ -108,6 +108,7 @@ def init_event_log():
 
 def send_to_kafka(event_type, event_data, events_producer):
     try:
+        logging.info("sent to function")
         trace_id = str(uuid.uuid4())
         event_data["trace_id"] = trace_id
 
