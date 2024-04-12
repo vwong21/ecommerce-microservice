@@ -83,6 +83,7 @@ def process_events():
                     f"Stored event type {payload['code']} with message {payload['message']}"
                 )
                 consumer.commit_offsets()
+            break
         except Exception as e:
             logger.error(e)
             retry_count += 1
