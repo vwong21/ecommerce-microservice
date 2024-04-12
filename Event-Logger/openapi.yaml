@@ -58,7 +58,7 @@ components:
     Event:
       type: object
       properties:
-        code:
-          type: string
         message:
+          type: string
+        code:
           type: string

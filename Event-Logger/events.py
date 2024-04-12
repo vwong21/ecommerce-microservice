@@ -19,7 +19,7 @@ class Events(Base):
     ):
         self.message = message
         self.code = code
-        if datetime is None:
+        if event_datetime is None:
             self.event_datetime = datetime.now(timezone.utc)
         else:
             self.event_datetime = event_datetime
