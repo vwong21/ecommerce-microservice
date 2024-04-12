@@ -67,37 +67,39 @@ while events_retry_count < events_max_retries:
         sleep_time = app_config["events"]["retry_sleep_value"]
         time.sleep(sleep_time)
 
-event_log_retry_count = 0
-event_log_max_retries = app_config["event_log"]["max_retries"]
-event_log_producer = None
-while event_log_retry_count < event_log_max_retries:
-    try:
-        logging.info("Connecting to Kafka topic event_log")
-        event_log = app_config["event_log"]
-        kafka_server = event_log["hostname"]
-        kafka_port = event_log["port"]
-        kafka_topic = event_log["topic"]
 
-        client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
-        topic = client.topics[str.encode(kafka_topic)]
-        event_log_producer = topic.get_sync_producer()
-        payload = {
-            "message": "Successfully connected to Kafka event_log topic",
-            "code": "0001",
-        }
-        msg = {
-            "payload": payload,
-        }
+def init_event_log():
+    event_log_retry_count = 0
+    event_log_max_retries = app_config["event_log"]["max_retries"]
+    event_log_producer = None
+    while event_log_retry_count < event_log_max_retries:
+        try:
+            logging.info("Connecting to Kafka topic event_log")
+            event_log = app_config["event_log"]
+            kafka_server = event_log["hostname"]
+            kafka_port = event_log["port"]
+            kafka_topic = event_log["topic"]
 
-        msg_str = json.dumps(msg)
-        event_log_producer.produce(msg_str.encode("utf-8"))
-        logging.info(payload)
-        break
-    except Exception as e:
-        logger.error(e)
-        event_log_retry_count += 1
-        sleep_time = app_config["event_log"]["retry_sleep_value"]
-        time.sleep(sleep_time)
+            client = KafkaClient(hosts=f"{kafka_server}:{kafka_port}")
+            topic = client.topics[str.encode(kafka_topic)]
+            event_log_producer = topic.get_sync_producer()
+            payload = {
+                "message": "Successfully connected to Kafka event_log topic",
+                "code": "0001",
+            }
+            msg = {
+                "payload": payload,
+            }
+
+            msg_str = json.dumps(msg)
+            event_log_producer.produce(msg_str.encode("utf-8"))
+            logging.info(payload)
+            break
+        except Exception as e:
+            logger.error(e)
+            event_log_retry_count += 1
+            sleep_time = app_config["event_log"]["retry_sleep_value"]
+            time.sleep(sleep_time)
 
 
 def send_to_kafka(event_type, event_data, events_producer):
@@ -129,4 +131,5 @@ def processOrder(body):
 
 
 if __name__ == "__main__":
+    init_event_log()
     app.run(host="0.0.0.0", port=8080)
