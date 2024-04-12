@@ -1,4 +1,6 @@
 version: 1
+datastore:
+  filename: /data/events.sqlite
 event_log:
   hostname: kafka-acit3855-lab6.eastus.cloudapp.azure.com
   port: 9092

@@ -6,8 +6,12 @@ import os
 import time
 import yaml
 
+from base import Base
+from events import Events
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from threading import Thread
 
 app = connexion.FlaskApp(__name__, specification_dir="")
@@ -38,6 +42,11 @@ logger = logging.getLogger("basicLogger")
 logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
 
+DB_ENGINE = create_engine("sqlite:///%s" % app_config["datastore"]["filename"])
+Base.metadata.bind = DB_ENGINE
+Base.metadata.create_all(DB_ENGINE)
+DB_SESSION = sessionmaker(bind=DB_ENGINE)
+
 
 def process_events():
     max_retries = app_config["event_log"]["max_retries"]
@@ -60,6 +69,20 @@ def process_events():
                 msg_str = msg.value.decode("utf-8")
                 msg = json.loads(msg_str)
                 logger.info("Message: %s" % msg)
+
+                payload = msg["payload"]
+
+                events = Events(
+                    message=payload["message"],
+                    code=payload["code"]
+                )
+
+                session = DB_SESSION()
+                logging.info("Connected to database. Logging event to database.")
+                session.add(events)
+                session.commit()
+                session.close()
+                logger.debut(f"Stored event type {payload["code"]} with message {payload["message"]}")
                 consumer.commit_offsets()
         except Exception as e:
             logger.error(e)
