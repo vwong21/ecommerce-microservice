@@ -55,6 +55,14 @@ def process_messages():
                 msg = json.loads(msg_str)
                 logging.info("Message: %s" % msg)
 
+                payload = msg["payload"]
+
+                if msg["type"] == "products":
+                    if payload["price"] < 0:
+                        logging.info("Anomaly detected")
+                elif msg["type"] == "orders":
+                    if payload["quantity"] < 0:
+                        logging.info("Anomaly Detected")
             break
         except Exception as e:
             logger.error(e)
