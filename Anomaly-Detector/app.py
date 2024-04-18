@@ -96,7 +96,8 @@ def process_messages():
                             trace_id=payload["trace_id"],
                             event_type=msg["type"],
                             anomaly_type="Invalid Price",
-                            description="Price value %s is invalid" % payload["price"],
+                            description="Price value %s is invalid"
+                            % payload["total_price"],
                         )
                         session.add(anomalies)
                         session.commit()
@@ -114,7 +115,7 @@ def process_messages():
             time.sleep(sleep_time)
 
 
-def get_anomally_stats(event_type):
+def get_anomaly_stats(event_type):
     logger.info("Request for anomalies started")
     try:
         session = DB_SESSION()
