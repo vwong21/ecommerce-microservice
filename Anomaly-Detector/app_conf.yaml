@@ -8,7 +8,7 @@ events:
   max_retries: 10
   retry_sleep_value: 5
 anomalies:
-  product:
+  products:
     upper: 1000000
     lower: 0
   orders:
