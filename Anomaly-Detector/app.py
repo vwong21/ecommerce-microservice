@@ -45,13 +45,16 @@ def process_messages():
                 reset_offset_on_start=False,
                 auto_offset_reset=OffsetType.LATEST,
             )
-            logging.info(f"Successfully connected to Kafka topic {app_config["events"]["topic"]}")
+            logging.info(
+                f"Successfully connected to Kafka topic {app_config['events']['topic']}"
+            )
             break
         except Exception as e:
             logger.error(e)
             retry_count += 1
             sleep_time = app_config["events"]["retry_sleep_value"]
             time.sleep(sleep_time)
+
 
 app = connexion.FlaskApp(__name__, specification_dir="")
 if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
