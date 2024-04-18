@@ -58,11 +58,19 @@ def process_messages():
                 payload = msg["payload"]
 
                 if msg["type"] == "products":
-                    if payload["price"] < 0:
+                    if (
+                        app_config["anomalies"]["products"]["lower"]
+                        > payload["price"]
+                        > app_config["anomalies"]["products"]["upper"]
+                    ):
                         logging.info("Anomaly detected")
                 elif msg["type"] == "orders":
-                    if payload["quantity"] < 0:
-                        logging.info("Anomaly Detected")
+                    if (
+                        app_config["anomalies"]["orders"]["lower"]
+                        > payload["price"]
+                        > app_config["anomalies"]["orders"]["upper"]
+                    ):
+                        logging.info("Anomaly detected")
             break
         except Exception as e:
             logger.error(e)
