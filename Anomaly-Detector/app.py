@@ -1,6 +1,7 @@
 import connexion
 import logging
 import logging.config
+import json
 import os
 import time
 import yaml
@@ -49,6 +50,11 @@ def process_messages():
             logging.info(
                 f"Successfully connected to Kafka topic {app_config['events']['topic']}"
             )
+            for msg in consumer:
+                msg_str = msg.value.decode("utf-8")
+                msg = json.loads(msg_str)
+                logging.info("Message: %s" % msg)
+
             break
         except Exception as e:
             logger.error(e)
