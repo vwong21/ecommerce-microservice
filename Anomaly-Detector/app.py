@@ -59,8 +59,8 @@ def process_messages():
 
                 if msg["type"] == "products":
                     if (
-                        app_config["anomalies"]["products"]["lower"]
-                        > payload["price"]
+                        app_config["anomalies"]["products"]["lower"] > payload["price"]
+                        or payload["price"]
                         > app_config["anomalies"]["products"]["upper"]
                     ):
                         logging.info("Anomaly detected")
@@ -68,6 +68,7 @@ def process_messages():
                     if (
                         app_config["anomalies"]["orders"]["lower"]
                         > payload["total_price"]
+                        or payload["total_price"]
                         > app_config["anomalies"]["orders"]["upper"]
                     ):
                         logging.info("Anomaly detected")
