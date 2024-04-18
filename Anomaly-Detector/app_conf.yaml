@@ -1,0 +1,9 @@
+version: 1
+datastore:
+  filename: /data/anomalies.sqlite
+events:
+  hostname: kafka-acit3855-lab6.eastus.cloudapp.azure.com
+  port: 9092
+  topic: events
+  max_retries: 10
+  retry_sleep_value: 5

@@ -1,0 +1,4 @@
+connexion[flask, uvicorn]==3.0.6
+swagger_ui_bundle==1.1.0
+pykafka==2.8.0
+Flask-Cors>=4.0.0
