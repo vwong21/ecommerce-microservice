@@ -8,6 +8,7 @@ import yaml
 from flask_cors import CORS
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
+from threading import Thread
 
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
     print("In Test Environment")
@@ -69,5 +70,8 @@ app.add_api(
 )
 
 if __name__ == "__main__":
+    t1 = Thread(target=process_messages)
+    t1.daemon
+    t1.start()
     logging.info("app running on port 8130")
     app.run(host="0.0.0.0", port=8130)
