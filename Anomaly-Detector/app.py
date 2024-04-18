@@ -6,9 +6,13 @@ import os
 import time
 import yaml
 
+from anomalies import Anomalies
+from base import Base
 from flask_cors import CORS
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from threading import Thread
 
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
@@ -30,6 +34,11 @@ logging.config.dictConfig(log_config)
 logger = logging.getLogger("basicLogger")
 logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
+
+DB_ENGINE = create_engine("sqlite:///%s" % app_config["datastore"]["filename"])
+Base.metadata.bind = DB_ENGINE
+Base.metadata.create_all(DB_ENGINE)
+DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 
 def process_messages():
@@ -56,7 +65,7 @@ def process_messages():
                 logging.info("Message: %s" % msg)
 
                 payload = msg["payload"]
-
+                session = DB_SESSION()
                 if msg["type"] == "products":
                     if (
                         app_config["anomalies"]["products"]["lower"] > payload["price"]
@@ -64,6 +73,14 @@ def process_messages():
                         > app_config["anomalies"]["products"]["upper"]
                     ):
                         logging.info("Anomaly detected")
+                        anomalies = Anomalies(
+                            trace_id=payload["trace_id"],
+                            event_type=msg["type"],
+                            anomaly_type="Invalid Price",
+                            description="Price either exceeds 1,000,000 or is below 0",
+                        )
+                        session.add(anomalies)
+                        session.commit()
                 elif msg["type"] == "orders":
                     if (
                         app_config["anomalies"]["orders"]["lower"]
@@ -72,6 +89,17 @@ def process_messages():
                         > app_config["anomalies"]["orders"]["upper"]
                     ):
                         logging.info("Anomaly detected")
+                        anomalies = Anomalies(
+                            trace_id=payload["trace_id"],
+                            event_type=msg["type"],
+                            anomaly_type="Invalid Price",
+                            description="Price either exceeds 1,000,000 or is below 0",
+                        )
+                        session.add(anomalies)
+                        session.commit()
+                session.close()
+                logger.debug("Item has been checked for anomalies")
+                consumer.commit_offsets()
             break
         except Exception as e:
             logger.error(e)
