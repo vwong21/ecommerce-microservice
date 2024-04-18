@@ -12,6 +12,7 @@ from flask_cors import CORS
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
 from sqlalchemy import create_engine
+from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker
 from threading import Thread
 
@@ -62,9 +63,9 @@ def process_messages():
             for msg in consumer:
                 msg_str = msg.value.decode("utf-8")
                 msg = json.loads(msg_str)
-                logging.info("Message: %s" % msg)
 
                 payload = msg["payload"]
+                logger.info(payload)
                 session = DB_SESSION()
                 if msg["type"] == "products":
                     if (
@@ -72,7 +73,6 @@ def process_messages():
                         or payload["price"]
                         > app_config["anomalies"]["products"]["upper"]
                     ):
-                        logging.info("Anomaly detected")
                         anomalies = Anomalies(
                             trace_id=payload["trace_id"],
                             event_type=msg["type"],
@@ -81,6 +81,9 @@ def process_messages():
                         )
                         session.add(anomalies)
                         session.commit()
+                        logger.info(
+                            f"Anomaly from products has been added to the database"
+                        )
                 elif msg["type"] == "orders":
                     if (
                         app_config["anomalies"]["orders"]["lower"]
@@ -97,6 +100,9 @@ def process_messages():
                         )
                         session.add(anomalies)
                         session.commit()
+                        logger.info(
+                            f"Anomaly from orders has been added to the database"
+                        )
                 session.close()
                 logger.debug("Item has been checked for anomalies")
                 consumer.commit_offsets()
@@ -106,6 +112,52 @@ def process_messages():
             retry_count += 1
             sleep_time = app_config["events"]["retry_sleep_value"]
             time.sleep(sleep_time)
+
+
+def get_anomally_stats(event_type):
+    logger.info("Request for anomalies started")
+    try:
+        session = DB_SESSION()
+        if event_type == "products":
+            anomaly_counts = (
+                session.query(func.count(Anomalies.id))
+                .filter(Anomalies.event_type == "products")
+                .scalar()
+            )
+        elif event_type == "orders":
+            anomaly_counts = (
+                session.query(func.count(Anomalies.id))
+                .filter(Anomalies.event_type == "orders")
+                .scalar()
+            )
+        else:
+            logger.error("Invalid event_type: %s" % event_type)
+            return None
+        latest_anomaly = (
+            session.query(Anomalies.description, Anomalies.created_at)
+            .filter(Anomalies.event_type == event_type)
+            .order_by(Anomalies.created_at.desc())
+            .first()
+        )
+        session.close()
+        if latest_anomaly:
+            latest_description = latest_anomaly[0]
+            latest_datetime = latest_anomaly[1]
+        else:
+            latest_description = None
+            latest_datetime = None
+        return {
+            "num_anomalies": anomaly_counts,
+            "most_recent_desc": latest_description,
+            "most_recent_datetime": (
+                latest_datetime.strftime("%Y-%m-%d %H:%M:%S")
+                if latest_datetime
+                else None
+            ),
+        }
+    except Exception as e:
+        logger.error(e)
+        return None
 
 
 app = connexion.FlaskApp(__name__, specification_dir="")
@@ -118,6 +170,10 @@ app.add_api(
     base_path="/anomaly-detector",
     strict_validation=True,
     validate_responses=True,
+)
+
+logger.info(
+    f"Products Range: {app_config['anomalies']['products']['lower']} - {app_config['anomalies']['products']['upper']}, Orders Range: {app_config['anomalies']['orders']['lower']} - {app_config['anomalies']['orders']['upper']}"
 )
 
 if __name__ == "__main__":
