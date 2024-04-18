@@ -46,6 +46,7 @@ def process_messages():
                 auto_offset_reset=OffsetType.LATEST,
             )
             logging.info(f"Successfully connected to Kafka topic {app_config["events"]["topic"]}")
+            break
         except Exception as e:
             logger.error(e)
             retry_count += 1
