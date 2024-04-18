@@ -143,6 +143,7 @@ services:
     volumes:
       - /home/azureuser/config/anomaly_detector:/config
       - /home/azureuser/logs:/logs
+      - /anomaly-detector-db:/data
     depends_on:
       - "receiver"
       - "storage"
