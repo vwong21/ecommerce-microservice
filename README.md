@@ -2,7 +2,7 @@
 
 A distributed ecommerce backend built with an event-driven microservices architecture. Handle product listings, customer orders, real-time analytics, anomaly detection, and system health monitoring â€” all across independently deployable services.
 
-# ðŸš€ Tech Stack
+# 🚀 Tech Stack
 
 - Python
 - Flask / Connexion (OpenAPI)
